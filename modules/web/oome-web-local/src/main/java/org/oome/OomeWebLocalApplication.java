@@ -1,7 +1,7 @@
 package org.oome;
 
 import lombok.extern.slf4j.Slf4j;
-import org.oome.api.utils.OomeStringUtils;
+import org.oome.core.api.utils.OomeStringUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

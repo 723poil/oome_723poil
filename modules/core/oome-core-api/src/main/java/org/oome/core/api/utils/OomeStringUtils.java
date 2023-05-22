@@ -1,4 +1,4 @@
-package org.oome.api.utils;
+package org.oome.core.api.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 
