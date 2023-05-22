@@ -10,7 +10,7 @@ dependencyResolutionManagement {
 
 rootProject.name = 'oome'
 
-file('modules/local').eachDir { dir ->
+file('modules/web').eachDir { dir ->
     println("${dir.name}:${dir}")
     include(":${dir.name}")
     project(":${dir.name}").projectDir = dir

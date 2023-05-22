@@ -1,0 +1,11 @@
+logging:
+  level:
+    org.oome: debug
+
+spring:
+  config:
+    import:
+      - classpath:local/application-api.yml
+
+    activate:
+      on-profile: local

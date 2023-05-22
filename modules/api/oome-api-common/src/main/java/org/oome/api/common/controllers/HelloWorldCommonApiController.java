@@ -2,12 +2,14 @@ package org.oome.api.common.controllers;
 
 import org.oome.api.utils.OomeStringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("${org.oome.api.context-path.common}")
 @RestController
-public class HelloWorldCommonController {
+public class HelloWorldCommonApiController {
 
-    @GetMapping("/api/hello")
+    @GetMapping("/hello")
     public String helloWorld() {
         return OomeStringUtils.convertToCamelCase("hello_world");
     }

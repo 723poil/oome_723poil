@@ -1,0 +1,16 @@
+org:
+  oome:
+    root-url: http://localhost:8080
+    api:
+      version:
+        common: v1
+        qna: v1
+        blog: v1
+        util: v1
+        ext: v1
+      context-path:
+        common: /api/${org.oome.api.version.common}/common
+        qna: /api/${org.oome.api.version.qna}/qna
+        blog: /api/${org.oome.api.version.blog}/blog
+        util: /api/${org.oome.api.version.util}/util
+        ext: /api/${org.oome.api.version.ext}/ext
