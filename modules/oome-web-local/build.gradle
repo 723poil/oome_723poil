@@ -1,0 +1,14 @@
+plugins {
+    id 'org.oome.common'
+    id 'org.oome.common.dependencies'
+}
+
+dependencies {
+    rootProject.subprojects.each {
+        if (!it.getName().contains("oome-web-local")) {
+            implementation project(":${it.name}")
+        }
+    }
+}
+
+description = 'oome-web-local'

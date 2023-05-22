@@ -1,0 +1,12 @@
+buildscript {
+    //repository 관련 공통 스크립트 include
+    apply from: 'repositories.gradle'
+
+    configureSharedRepositories(repositories)
+
+    //plugin 에서 사용할 dependency 정의
+    dependencies {
+        classpath('org.springframework.boot:org.springframework.boot.gradle.plugin:2.7.10')
+        classpath('io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE')
+    }
+}

@@ -1,0 +1,15 @@
+plugins {
+    id 'idea'
+    id 'eclipse'
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'io.spring.dependency-management'
+    id 'org.oome.common.dependencies'
+}
+
+group = 'org'
+version = '1.0.0'
+
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11

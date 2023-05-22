@@ -1,0 +1,17 @@
+pluginManagement {
+    includeBuild('build-common')
+}
+
+dependencyResolutionManagement {
+    apply from: 'repositories.gradle'
+
+    settings.ext.configureSharedRepositories(repositories)
+}
+
+rootProject.name = 'oome'
+
+file('/modules/').eachDir { dir ->
+    println("${dir.name}:${dir}")
+    include(":${dir.name}")
+    project(":${dir.name}").projectDir = dir
+}

@@ -1,0 +1,7 @@
+# Project exclude paths
+/.gradle/
+/build-common/.gradle/
+/build-common/build/
+/build-common/build/classes/java/main/
+/modules/oome-web-local/build/
+/modules/oome-web-local/build/classes/java/main/
