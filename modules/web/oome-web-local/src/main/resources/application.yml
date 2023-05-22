@@ -8,4 +8,4 @@ spring:
       - classpath:local/application-api.yml
 
     activate:
-      on-profile: local
+      on-profile: local 
