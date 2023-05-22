@@ -10,13 +10,15 @@ dependencyResolutionManagement {
 
 rootProject.name = 'oome'
 
-file('/modules/').eachDir { dir ->
-    println("${dir.name}:${dir}")
-    include(":${dir.name}")
-    project(":${dir.name}").projectDir = dir
+file('modules/').eachDir { dir ->
+    if (dir.name != 'core') {
+        println("${dir.name}:${dir}")
+        include(":${dir.name}")
+        project(":${dir.name}").projectDir = dir
+    }
 }
 
-file('/modules/core').eachDir { dir ->
+file('modules/core/').eachDir { dir ->
     println("${dir.name}:${dir}")
     include(":${dir.name}")
     project(":${dir.name}").projectDir = dir
