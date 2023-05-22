@@ -1,0 +1,6 @@
+plugins {
+    id 'org.oome.common'
+    id 'org.oome.common.dependencies'
+}
+
+description = 'oome-core'
