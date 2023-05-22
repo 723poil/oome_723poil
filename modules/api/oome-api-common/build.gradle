@@ -1,0 +1,12 @@
+plugins {
+    id 'org.oome.common'
+    id 'org.oome.common.dependencies'
+}
+
+dependencies {
+    implementation project(":oome-core")
+    implementation project(":oome-core-api")
+    implementation project(":oome-core-db")
+}
+
+description = 'oome-api-common'
