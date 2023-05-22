@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("${org.oome.api.context-path.common}")
+@RequestMapping("${org.oome.api.context-path.common-url}")
 @RestController
 public class HelloWorldCommonApiController {
 

@@ -9,8 +9,9 @@ org:
         util: v1
         ext: v1
       context-path:
-        common: /api/${org.oome.api.version.common}/common
-        qna: /api/${org.oome.api.version.qna}/qna
-        blog: /api/${org.oome.api.version.blog}/blog
-        util: /api/${org.oome.api.version.util}/util
-        ext: /api/${org.oome.api.version.ext}/ext
+        is-use: true
+        common-url: /api/${org.oome.api.version.common}/common
+        qna-url: /api/${org.oome.api.version.qna}/qna
+        blog-url: /api/${org.oome.api.version.blog}/blog
+        util-url: /api/${org.oome.api.version.util}/util
+        ext-url: /api/${org.oome.api.version.ext}/ext
