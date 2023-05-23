@@ -17,6 +17,7 @@ public class OomeWebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         SecurityFilterChain filterChain = http.httpBasic().disable()
                 .authorizeRequests()
+                .antMatchers("/authcheck").hasAnyRole("ROLE_DEV")
                 .anyRequest().permitAll()
                 .and()
                 .cors().disable()
