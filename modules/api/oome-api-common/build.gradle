@@ -1,6 +1,7 @@
 plugins {
     id 'org.oome.common'
     id 'org.oome.common.dependencies'
+    id 'org.oome.swagger.dependencies'
 }
 
 dependencies {

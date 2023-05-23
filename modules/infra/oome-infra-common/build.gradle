@@ -1,0 +1,17 @@
+plugins {
+    id 'org.oome.common'
+    id 'org.oome.common.dependencies'
+    id 'org.oome.redis.dependencies'
+    id 'org.oome.swagger.dependencies'
+}
+
+dependencies {
+    implementation project(':oome-core')
+    implementation project(':oome-core-api')
+    implementation project(':oome-core-db')
+    implementation project(':oome-entity')
+
+    implementation 'org.springframework.kafka:spring-kafka'
+}
+
+description = 'oome-infra-common'

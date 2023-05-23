@@ -33,3 +33,9 @@ file('modules/entity').eachDir { dir ->
     include(":${dir.name}")
     project(":${dir.name}").projectDir = dir
 }
+
+file('modules/infra').eachDir { dir ->
+    println("${dir.name}:${dir}")
+    include(":${dir.name}")
+    project(":${dir.name}").projectDir = dir
+}

@@ -10,4 +10,4 @@ dependencies {
     implementation project(":oome-core-db")
 }
 
-description = 'oome-entity-common'
+description = 'oome-entity'
