@@ -2,6 +2,7 @@ package org.oome.core.api.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+@Deprecated
 public class OomeStringUtils {
 
     public static String convertToCamelCase(String underbarStr) {
