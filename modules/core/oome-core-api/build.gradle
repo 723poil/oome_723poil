@@ -3,4 +3,8 @@ plugins {
     id 'org.oome.common.dependencies'
 }
 
+dependencies {
+    implementation project(':oome-core')
+    implementation project(':oome-core-db')
+}
 description = 'oome-core-api'

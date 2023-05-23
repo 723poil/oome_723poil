@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:log4jdbc:h2:mem:oome
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    username: sa
+    password:
+
+  jpa:
+    show-sql: false
+    database: h2
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

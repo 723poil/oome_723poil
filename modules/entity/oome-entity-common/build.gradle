@@ -6,5 +6,8 @@ plugins {
 
 dependencies {
     implementation project(":oome-core")
+    implementation project(":oome-core-api")
+    implementation project(":oome-core-db")
 }
-description = 'oome-core-db'
+
+description = 'oome-entity-common'

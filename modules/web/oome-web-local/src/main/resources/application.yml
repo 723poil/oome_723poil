@@ -6,6 +6,6 @@ spring:
   config:
     import:
       - classpath:local/application-api.yml
-
+      - classpath:local/application-db.yml
     activate:
-      on-profile: local 
+      on-profile: local
