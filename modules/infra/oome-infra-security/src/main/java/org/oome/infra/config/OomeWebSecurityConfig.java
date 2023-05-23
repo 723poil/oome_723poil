@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 @Slf4j
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -25,9 +27,21 @@ public class OomeWebSecurityConfig {
                 .headers()
                 .frameOptions().sameOrigin()
                 .and()
+                .formLogin()
+                .loginPage("/login")
+                .successHandler(savedRequestAwareAuthenticationSuccessHandler())
+                .permitAll()
+                .and()
                 .build();
 
         log.debug("Security FilterChaining complete");
         return filterChain;
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
+        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+        successHandler.setUseReferer(true);
+        return successHandler;
     }
 }
