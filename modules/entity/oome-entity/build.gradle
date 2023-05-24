@@ -10,4 +10,23 @@ dependencies {
     implementation project(":oome-core-db")
 }
 
+
+// Querydsl
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom(developmentOnly)
+    }
+}
+
+def generated = "src/main/generated"
+
+sourceSets {
+    main.java.srcDirs += [generated]
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
 description = 'oome-entity'
