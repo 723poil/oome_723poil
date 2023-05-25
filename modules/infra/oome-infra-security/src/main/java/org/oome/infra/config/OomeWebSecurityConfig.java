@@ -1,11 +1,14 @@
 package org.oome.infra.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.oome.infra.utils.TraceLogger;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -30,6 +33,8 @@ public class OomeWebSecurityConfig {
                 .formLogin()
                 .loginPage("/login")
                 .successHandler(savedRequestAwareAuthenticationSuccessHandler())
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .permitAll()
                 .and()
                 .build();
@@ -43,5 +48,16 @@ public class OomeWebSecurityConfig {
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setUseReferer(true);
         return successHandler;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public TraceLogger traceLogger() {
+        log.debug("TraceLogger Bean Created");
+        return new TraceLogger();
     }
 }

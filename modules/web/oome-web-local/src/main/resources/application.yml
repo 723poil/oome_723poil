@@ -7,5 +7,6 @@ spring:
     import:
       - classpath:local/application-api.yml
       - classpath:local/application-db.yml
+      - classpath:local/application-web.yml
     activate:
       on-profile: local
