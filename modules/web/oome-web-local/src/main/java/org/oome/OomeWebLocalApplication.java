@@ -17,5 +17,6 @@ public class OomeWebLocalApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.debug(OomeStringUtils.convertToCamelCase("hello_world"));
+
     }
 }
