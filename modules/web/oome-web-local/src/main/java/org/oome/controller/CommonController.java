@@ -14,7 +14,5 @@ public class CommonController implements ErrorController {
         return "/index.html";
     }
 
-    public String getErrorPath() {
-        return "/error";
-    }
+
 }

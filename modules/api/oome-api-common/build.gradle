@@ -8,6 +8,9 @@ dependencies {
     implementation project(":oome-core")
     implementation project(":oome-core-api")
     implementation project(":oome-core-db")
+
+    implementation project(":oome-entity")
+    implementation project(":oome-infra-security")
 }
 
 description = 'oome-api-common'

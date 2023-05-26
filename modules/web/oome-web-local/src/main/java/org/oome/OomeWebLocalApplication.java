@@ -42,19 +42,19 @@ public class OomeWebLocalApplication implements CommandLineRunner {
         memberList.add(Member.builder()
                 .username("user")
                 .password("1234")
-                .memberRole(commonRole)
+                .memberRoles(commonRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("admin")
                 .password("1234")
-                .memberRole(adminRole)
+                .memberRoles(adminRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("dev")
                 .password("1234")
-                .memberRole(developerRole)
+                .memberRoles(developerRole)
                 .build());
 
         memberJpaRepository.saveAll(memberList);
