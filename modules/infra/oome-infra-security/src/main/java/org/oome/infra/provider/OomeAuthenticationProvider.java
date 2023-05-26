@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.entity.member.vo.res.MemberRs;
 import org.oome.infra.exception.AuthenticationLoginInfoCheckRuntimeException;
+import org.oome.infra.user.AuthorizedUser;
 import org.oome.infra.vo.LoginResVo;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -58,7 +59,8 @@ public class OomeAuthenticationProvider implements AuthenticationProvider {
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
 
-        return new UsernamePasswordAuthenticationToken(username, password, authorities);
+        AuthorizedUser user = new AuthorizedUser(loginResVo, false, false, false, false, authorities);
+        return new UsernamePasswordAuthenticationToken(user, password, authorities);
     }
 
     @Override

@@ -49,10 +49,10 @@ public class SessionFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
-        if (ObjectUtils.isEmpty(httpSession.getAttribute("user"))) {
-            getAuthenticationEntryPoint().commence(request, response, new UsernameNotFoundException("User not found"));
-            return;
-        }
+//        if (ObjectUtils.isEmpty(httpSession.getAttribute("user"))) {
+//            getAuthenticationEntryPoint().commence(request, response, new UsernameNotFoundException("User not found"));
+//            return;
+//        }
 
         filterChain.doFilter(request, response);
     }

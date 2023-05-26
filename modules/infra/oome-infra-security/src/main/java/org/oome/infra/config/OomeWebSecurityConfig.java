@@ -25,6 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class OomeWebSecurityConfig {
 
         SecurityFilterChain filterChain = http.httpBasic().disable()
                 .authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/authcheck").hasAnyRole("ROLE_DEVELOPER")
                 .antMatchers(urlList.stream()
                         .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyRole(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
