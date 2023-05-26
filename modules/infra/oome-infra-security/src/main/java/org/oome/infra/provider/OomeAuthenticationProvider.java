@@ -2,6 +2,7 @@ package org.oome.infra.provider;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.entity.member.vo.res.MemberRs;
 import org.oome.infra.exception.AuthenticationLoginInfoCheckRuntimeException;
@@ -35,10 +36,11 @@ public class OomeAuthenticationProvider implements AuthenticationProvider {
 
 
         try {
-            MemberRs rs = modelMapper.map(memberJpaRepository.findByUsername(username).orElseThrow(IllegalArgumentException::new), MemberRs.class);
-
+            Member member = memberJpaRepository.findByUsername(username).orElseThrow(IllegalArgumentException::new);
+            MemberRs rs = MemberRs.builder()
+                    .entity(member)
+                    .build();
             // TODO : block YN check
-
             if (!passwordEncoder.matches(password, rs.getPassword())) {
                 // TODO : fail count + or block
 
@@ -47,7 +49,11 @@ public class OomeAuthenticationProvider implements AuthenticationProvider {
             } else {
                 // TODO : reset fail count
 
-                loginResVo = modelMapper.map(rs, LoginResVo.class);
+                loginResVo = LoginResVo.builder()
+                        .username(rs.getUsername())
+                        .password(rs.getPassword())
+                        .memberRoles(rs.getMemberRoles())
+                        .build();
             }
         } catch (IllegalArgumentException ex) {
             throw new AuthenticationLoginInfoCheckRuntimeException("계정이 존재하지 않습니다.", ex);

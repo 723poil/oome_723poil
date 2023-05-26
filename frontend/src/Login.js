@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
+import axios from "axios";
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('')
 
     const handleLogin = (e) => {
-        e.preventDefault();
         // Add your login logic here
         console.log('Username:', username);
         console.log('Password:', password);
         // Reset form fields
-        setUsername('');
-        setPassword('');
+        const data = {
+            username: username,
+            password: password
+        }
+
+        axios.post('/api/v1/common/auth/authorize', data, {
+            headers: {
+                'Content-Type': "application/json"
+            }
+        })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch(e => console.error(e))
     };
 
     return (
         <div>
             <h2>Login</h2>
-            <form onSubmit={handleLogin} method="POST">
+            <form onSubmit={handleLogin}>
                 <label>
                     Username:
                     <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />

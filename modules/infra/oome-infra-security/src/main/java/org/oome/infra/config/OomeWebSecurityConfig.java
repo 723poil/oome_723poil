@@ -66,7 +66,7 @@ public class OomeWebSecurityConfig {
         SecurityFilterChain filterChain = http.httpBasic().disable()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/authcheck").hasAnyRole("ROLE_DEVELOPER")
+                .antMatchers("/authcheck").hasAnyRole("DEVELOPER")
                 .antMatchers(urlList.stream()
                         .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyRole(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
                 .anyRequest().permitAll()

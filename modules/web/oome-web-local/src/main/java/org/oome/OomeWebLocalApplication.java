@@ -9,6 +9,7 @@ import org.oome.entity.member.repository.MemberJpaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,6 +22,8 @@ import java.util.Set;
 public class OomeWebLocalApplication implements CommandLineRunner {
 
     private final MemberJpaRepository memberJpaRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(OomeWebLocalApplication.class, args);
@@ -41,19 +44,19 @@ public class OomeWebLocalApplication implements CommandLineRunner {
         List<Member> memberList = new ArrayList<>();
         memberList.add(Member.builder()
                 .username("user")
-                .password("1234")
+                .password(passwordEncoder.encode("1234"))
                 .memberRoles(commonRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("admin")
-                .password("1234")
+                .password(passwordEncoder.encode("1234"))
                 .memberRoles(adminRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("dev")
-                .password("1234")
+                .password(passwordEncoder.encode("1234"))
                 .memberRoles(developerRole)
                 .build());
 

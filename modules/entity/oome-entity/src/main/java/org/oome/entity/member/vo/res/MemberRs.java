@@ -1,14 +1,14 @@
 package org.oome.entity.member.vo.res;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.oome.entity.enums.MemberRole;
+import org.oome.entity.member.Member;
 
 import java.io.Serializable;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
 @Setter
 @Getter
 public class MemberRs implements Serializable {
@@ -20,4 +20,11 @@ public class MemberRs implements Serializable {
     private String password;
 
     private Set<MemberRole> memberRoles;
+
+    @Builder
+    public MemberRs(Member entity) {
+        this.username = entity.getUsername();
+        this.password = entity.getPassword();
+        this.memberRoles = entity.getMemberRoles();
+    }
 }

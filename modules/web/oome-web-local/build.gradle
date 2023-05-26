@@ -3,6 +3,7 @@ plugins {
     id 'org.oome.common.dependencies'
     id 'org.oome.common.db.dependencies'
     id 'org.oome.swagger.dependencies'
+    id 'org.oome.security.dependencies'
 }
 
 dependencies {
