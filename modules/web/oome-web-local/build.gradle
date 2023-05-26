@@ -8,6 +8,7 @@ plugins {
 dependencies {
     rootProject.subprojects.each {
         if (!it.getName().contains("oome-web-local")) {
+            println("implementation project :${it.name}")
             implementation project(":${it.name}")
         }
     }

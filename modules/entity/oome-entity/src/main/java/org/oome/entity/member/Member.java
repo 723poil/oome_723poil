@@ -1,16 +1,17 @@
 package org.oome.entity.member;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.oome.entity.common.BaseTimeEntity;
 import org.oome.entity.enums.MemberRole;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Member extends BaseTimeEntity {
 

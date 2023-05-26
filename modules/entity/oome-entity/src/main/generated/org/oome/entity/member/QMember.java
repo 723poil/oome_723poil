@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -28,6 +29,8 @@ public class QMember extends EntityPathBase<Member> {
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
+
+    public final SetPath<org.oome.entity.enums.MemberRole, EnumPath<org.oome.entity.enums.MemberRole>> memberRole = this.<org.oome.entity.enums.MemberRole, EnumPath<org.oome.entity.enums.MemberRole>>createSet("memberRole", org.oome.entity.enums.MemberRole.class, EnumPath.class, PathInits.DIRECT2);
 
     public final StringPath password = createString("password");
 

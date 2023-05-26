@@ -1,13 +1,15 @@
 package org.oome.entity.menu;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.oome.entity.common.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Menu extends BaseTimeEntity {
 
