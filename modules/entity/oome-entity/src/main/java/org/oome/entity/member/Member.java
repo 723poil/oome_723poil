@@ -3,8 +3,11 @@ package org.oome.entity.member;
 import lombok.Getter;
 import lombok.Setter;
 import org.oome.entity.common.BaseTimeEntity;
+import org.oome.entity.enums.MemberRole;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,4 +23,9 @@ public class Member extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    @Column(nullable = false)
+    private Set<MemberRole> memberRole;
 }
