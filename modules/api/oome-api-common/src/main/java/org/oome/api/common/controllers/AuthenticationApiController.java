@@ -25,14 +25,14 @@ public class AuthenticationApiController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping(value = "/authorize", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoginResVo> login(@RequestBody @Valid LoginReqVo loginReqVo,
-                                            HttpServletRequest request,
-                                            HttpServletResponse response) throws Exception {
-        log.debug("LoginRequest Accepted");
-
-        LoginResVo vo = authenticationService.signin(response, loginReqVo);
-
-        return ResponseEntity.ok(vo);
-    }
+//    @PostMapping(value = "/authorize", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+//    public ResponseEntity<LoginResVo> login(@RequestBody @Valid LoginReqVo loginReqVo,
+//                                            HttpServletRequest request,
+//                                            HttpServletResponse response) throws Exception {
+//        log.debug("LoginRequest Accepted");
+//
+//        LoginResVo vo = authenticationService.signin(response, loginReqVo);
+//
+//        return ResponseEntity.ok(vo);
+//    }
 }

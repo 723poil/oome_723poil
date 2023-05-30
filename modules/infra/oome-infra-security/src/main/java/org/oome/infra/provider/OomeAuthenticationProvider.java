@@ -62,7 +62,7 @@ public class OomeAuthenticationProvider implements AuthenticationProvider {
         }
 
         List<SimpleGrantedAuthority> authorities = loginResVo.getMemberRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .map(role -> new SimpleGrantedAuthority(role.getRole()))
                 .collect(Collectors.toList());
 
         AuthorizedUser user = new AuthorizedUser(loginResVo, false, false, false, false, authorities);

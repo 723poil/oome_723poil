@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.oome.core.properties.CommonUrlProperties;
 import org.oome.entity.enums.MemberRole;
 import org.oome.entity.member.repository.MemberJpaRepository;
+import org.oome.infra.filter.JsonLoginProcessingFilter;
 import org.oome.infra.filter.SessionFilter;
 import org.oome.infra.provider.OomeAuthenticationProvider;
 import org.oome.infra.service.AuthenticationService;
@@ -18,6 +19,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -66,7 +68,7 @@ public class OomeWebSecurityConfig {
         SecurityFilterChain filterChain = http.httpBasic().disable()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/authcheck").hasAnyRole("DEVELOPER")
+                .antMatchers("/authcheck").authenticated()
                 .antMatchers(urlList.stream()
                         .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyRole(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
                 .anyRequest().permitAll()
@@ -76,22 +78,27 @@ public class OomeWebSecurityConfig {
                 .headers()
                 .frameOptions().sameOrigin()
                 .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .successHandler(savedRequestAwareAuthenticationSuccessHandler())
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .defaultSuccessUrl("/")
-//                .permitAll()
-//                .and()
                 .authenticationProvider(oomeAuthenticationProvider())
                 .addFilterBefore(sessionFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and()
+                .formLogin()
+                .disable()
+                .logout()
+                .disable()
+
+                .addFilterBefore(jsonLoginProcessingFilter(authenticationConfiguration), UsernamePasswordAuthenticationFilter.class)
                 .build();
 
         log.debug("Security FilterChaining complete");
         return filterChain;
+    }
+
+    @Bean
+    public JsonLoginProcessingFilter jsonLoginProcessingFilter(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        JsonLoginProcessingFilter filter = new JsonLoginProcessingFilter("/api/v1/common/auth/authorize");
+        filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
+        return filter;
     }
 
     @Bean
