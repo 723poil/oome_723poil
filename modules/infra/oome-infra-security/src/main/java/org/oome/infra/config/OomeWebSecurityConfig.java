@@ -7,14 +7,12 @@ import org.oome.core.properties.CommonUrlProperties;
 import org.oome.entity.enums.MemberRole;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.infra.filter.JsonLoginProcessingFilter;
-import org.oome.infra.filter.SessionFilter;
 import org.oome.infra.provider.OomeAuthenticationProvider;
 import org.oome.infra.service.AuthenticationService;
 import org.oome.infra.utils.TraceLogger;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,7 +20,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -30,8 +27,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -55,7 +50,7 @@ public class OomeWebSecurityConfig {
     private final OomeAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration, SessionFilter sessionFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration) throws Exception {
         List<String> urlList = Stream.of(
                         commonUrlProperties.getCommonUrl(),
                         commonUrlProperties.getQnaUrl(),
@@ -66,6 +61,9 @@ public class OomeWebSecurityConfig {
                 .collect(Collectors.toList());
 
         SecurityFilterChain filterChain = http.httpBasic().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/authcheck").authenticated()
@@ -75,19 +73,13 @@ public class OomeWebSecurityConfig {
                 .and()
                 .cors().disable()
                 .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+                .authenticationProvider(oomeAuthenticationProvider())
+                .addFilterBefore(jsonLoginProcessingFilter(authenticationConfiguration), UsernamePasswordAuthenticationFilter.class)
                 .headers()
                 .frameOptions().sameOrigin()
                 .and()
-                .authenticationProvider(oomeAuthenticationProvider())
-                .addFilterBefore(sessionFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .formLogin()
-                .disable()
-                .logout()
-                .disable()
-
-                .addFilterBefore(jsonLoginProcessingFilter(authenticationConfiguration), UsernamePasswordAuthenticationFilter.class)
                 .build();
 
         log.debug("Security FilterChaining complete");
@@ -145,10 +137,5 @@ public class OomeWebSecurityConfig {
     public TraceLogger traceLogger() {
         log.debug("TraceLogger Bean Created");
         return new TraceLogger();
-    }
-
-    @Bean
-    public SessionFilter sessionFilter(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return new SessionFilter(authenticationManager(authenticationConfiguration), authenticationEntryPoint, httpSession);
     }
 }

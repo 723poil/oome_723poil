@@ -14,5 +14,4 @@ public class CommonController implements ErrorController {
         return "/index.html";
     }
 
-
 }
