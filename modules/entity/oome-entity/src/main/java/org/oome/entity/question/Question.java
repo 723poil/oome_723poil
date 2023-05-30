@@ -32,5 +32,5 @@ public class Question extends BaseTimeEntity {
     private Member creater;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Answer> answers = new ArrayList<>();
+    private final List<Answer> answers = new ArrayList<>();
 }

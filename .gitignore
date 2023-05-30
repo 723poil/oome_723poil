@@ -5,6 +5,7 @@
 /build-common/build/classes/java/main/
 /modules/web/oome-web-local/build/
 /modules/web/oome-web-local/build/classes/java/main/
+/modules/entity/oome-entity/src/main/generated/
 /.idea/
 /modules/web/oome-web-local/src/main/resources/static/
 /modules/**/build
