@@ -1,4 +1,4 @@
-package org.oome.core.db.config.jpa;
+package org.oome.entity.config;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

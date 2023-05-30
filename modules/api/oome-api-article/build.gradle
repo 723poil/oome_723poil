@@ -1,0 +1,18 @@
+plugins {
+    id 'org.oome.common'
+    id 'org.oome.common.dependencies'
+    id 'org.oome.common.db.dependencies'
+    id 'org.oome.swagger.dependencies'
+    id 'org.oome.security.dependencies'
+}
+
+dependencies {
+    implementation project(":oome-core")
+    implementation project(":oome-core-api")
+    implementation project(":oome-core-db")
+
+    implementation project(":oome-entity")
+    implementation project(":oome-infra-security")
+}
+
+description = 'oome-api-article'
