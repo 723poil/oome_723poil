@@ -1,11 +1,9 @@
-package org.oome.entity.article.repository;
+package org.oome.entity.question.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.oome.entity.article.Article;
+import org.oome.entity.question.Question;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
-
-import static org.oome.entity.article.QArticle.article;
 
 @Repository
 public class ArticleQuerydslRepository extends QuerydslRepositorySupport {
@@ -13,7 +11,7 @@ public class ArticleQuerydslRepository extends QuerydslRepositorySupport {
     private final JPAQueryFactory factory;
 
     public ArticleQuerydslRepository (JPAQueryFactory factory) {
-        super(Article.class);
+        super(Question.class);
         this.factory = factory;
     }
 

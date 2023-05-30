@@ -1,4 +1,4 @@
-package org.oome.entity.article;
+package org.oome.entity.question;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -8,13 +8,14 @@ import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.PathInits;
+import org.oome.entity.question.answer.Answer;
 
 
 /**
  * QArticle is a Querydsl query type for Article
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QArticle extends EntityPathBase<Article> {
+public class QArticle extends EntityPathBase<Question> {
 
     private static final long serialVersionUID = 1541737215L;
 
@@ -24,7 +25,7 @@ public class QArticle extends EntityPathBase<Article> {
 
     public final org.oome.entity.common.QBaseTimeEntity _super = new org.oome.entity.common.QBaseTimeEntity(this);
 
-    public final ListPath<org.oome.entity.article.comment.ArticleComment, org.oome.entity.article.comment.QArticleComment> comments = this.<org.oome.entity.article.comment.ArticleComment, org.oome.entity.article.comment.QArticleComment>createList("comments", org.oome.entity.article.comment.ArticleComment.class, org.oome.entity.article.comment.QArticleComment.class, PathInits.DIRECT2);
+    public final ListPath<Answer, org.oome.entity.question.answer.QArticleComment> comments = this.<Answer, org.oome.entity.question.answer.QArticleComment>createList("comments", Answer.class, org.oome.entity.question.answer.QArticleComment.class, PathInits.DIRECT2);
 
     public final StringPath contents = createString("contents");
 
@@ -41,10 +42,10 @@ public class QArticle extends EntityPathBase<Article> {
     public final StringPath title = createString("title");
 
     public QArticle(String variable) {
-        this(Article.class, forVariable(variable), INITS);
+        this(Question.class, forVariable(variable), INITS);
     }
 
-    public QArticle(Path<? extends Article> path) {
+    public QArticle(Path<? extends Question> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
@@ -53,10 +54,10 @@ public class QArticle extends EntityPathBase<Article> {
     }
 
     public QArticle(PathMetadata metadata, PathInits inits) {
-        this(Article.class, metadata, inits);
+        this(Question.class, metadata, inits);
     }
 
-    public QArticle(Class<? extends Article> type, PathMetadata metadata, PathInits inits) {
+    public QArticle(Class<? extends Question> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.creater = inits.isInitialized("creater") ? new org.oome.entity.member.QMember(forProperty("creater")) : null;
     }

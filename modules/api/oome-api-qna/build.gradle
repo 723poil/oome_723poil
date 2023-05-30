@@ -15,4 +15,4 @@ dependencies {
     implementation project(":oome-infra-security")
 }
 
-description = 'oome-api-article'
+description = 'oome-api-qna'

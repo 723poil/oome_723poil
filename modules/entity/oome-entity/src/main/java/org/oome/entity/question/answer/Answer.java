@@ -1,7 +1,7 @@
-package org.oome.entity.article.comment;
+package org.oome.entity.question.answer;
 
 import lombok.*;
-import org.oome.entity.article.Article;
+import org.oome.entity.question.Question;
 import org.oome.entity.member.Member;
 
 import javax.persistence.*;
@@ -12,11 +12,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class ArticleComment {
+public class Answer {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long idx;
+    private Long id;
 
     @Column(nullable = false)
     private String contents;
@@ -27,5 +27,5 @@ public class ArticleComment {
 
     @ManyToOne
     @JoinColumn
-    private Article article;
+    private Question question;
 }

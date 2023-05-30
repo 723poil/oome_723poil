@@ -1,7 +1,7 @@
-package org.oome.entity.article;
+package org.oome.entity.question;
 
 import lombok.*;
-import org.oome.entity.article.comment.ArticleComment;
+import org.oome.entity.question.answer.Answer;
 import org.oome.entity.common.BaseTimeEntity;
 import org.oome.entity.member.Member;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Article extends BaseTimeEntity {
+public class Question extends BaseTimeEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -31,6 +31,6 @@ public class Article extends BaseTimeEntity {
     @JoinColumn
     private Member creater;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ArticleComment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answers = new ArrayList<>();
 }
