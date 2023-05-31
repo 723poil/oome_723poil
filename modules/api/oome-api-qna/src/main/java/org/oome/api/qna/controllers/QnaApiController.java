@@ -42,8 +42,9 @@ public class QnaApiController {
      * @return 저장된 시퀀스(id)
      */
     @PostMapping(value = "/question/{questionId}/answer", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> saveAnswer(@PathVariable("questionId") Long questionId,
-                                           @Valid @RequestBody AnswerSaveReqDto reqDto) {
+    public ResponseEntity<Long> saveAnswer(
+            @PathVariable("questionId") Long questionId,
+            @Valid @RequestBody AnswerSaveReqDto reqDto) {
         return ResponseEntity.ok(qnaService.saveAnswer(questionId, reqDto));
     }
 

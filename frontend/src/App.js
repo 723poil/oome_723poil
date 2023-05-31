@@ -1,7 +1,8 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from './Login'
 import Main from './Main'
+import NotFound from './NotFound'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
               <Routes>
                   <Route path="/" element={<Main />}></Route>
                   <Route path="/login" element={<Login />}></Route>
+                  <Route path="*" element={<NotFound />}></Route>
               </Routes>
           </BrowserRouter>
       </div>

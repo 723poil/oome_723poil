@@ -2,8 +2,8 @@ package org.oome.api.qna.dto.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.oome.entity.question.Question;
 import org.oome.entity.member.Member;
+import org.oome.entity.question.Question;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -17,11 +17,11 @@ public class QuestionSaveReqDto implements Serializable {
 
     private static final long serialVersionUID = 8009935634530232531L;
 
-    @NotEmpty
+    @NotEmpty(message = "질문 제목 {invalid.NotEmpty}")
     @Schema(description = "질문 제목")
     private String title;
 
-    @NotEmpty
+    @NotEmpty(message = "질문내용 {invalid.NotEmpty}")
     @Schema(description = "질문 내용")
     private String contents;
 
