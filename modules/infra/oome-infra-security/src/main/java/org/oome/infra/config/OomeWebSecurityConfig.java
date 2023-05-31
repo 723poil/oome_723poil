@@ -90,6 +90,7 @@ public class OomeWebSecurityConfig {
     public JsonLoginProcessingFilter jsonLoginProcessingFilter(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         JsonLoginProcessingFilter filter = new JsonLoginProcessingFilter("/api/v1/common/auth/authorize");
         filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
+        filter.setAuthenticationSuccessHandler(savedRequestAwareAuthenticationSuccessHandler());
         return filter;
     }
 

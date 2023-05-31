@@ -24,6 +24,7 @@ public class JsonLoginProcessingFilter extends AbstractAuthenticationProcessingF
 
     public JsonLoginProcessingFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
+        setAuthenticationManager(super.getAuthenticationManager());
     }
 
     @Override
@@ -51,4 +52,6 @@ public class JsonLoginProcessingFilter extends AbstractAuthenticationProcessingF
         // Delegate the authentication to your custom authentication provider
         return getAuthenticationManager().authenticate(authentication);
     }
+
+
 }
