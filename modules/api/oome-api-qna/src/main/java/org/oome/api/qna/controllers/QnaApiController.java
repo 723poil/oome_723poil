@@ -14,6 +14,10 @@ import javax.validation.Valid;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * Qna와 관련된 ApiController
+ * @author hjhearts
+ */
 @RequiredArgsConstructor
 @RequestMapping("${org.oome.api.context-path.qna-url}")
 @RestController
@@ -31,12 +35,24 @@ public class QnaApiController {
         return ResponseEntity.ok(qnaService.saveQuestion(reqDto));
     }
 
+    /**
+     * 답변을 저장한다.
+     * @param questionId 질문 시퀀스(id)
+     * @param reqDto 답변 정보
+     * @return 저장된 시퀀스(id)
+     */
     @PostMapping(value = "/question/{questionId}/answer", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> saveAnswer(@PathVariable("questionId") Long questionId,
                                            @Valid @RequestBody AnswerSaveReqDto reqDto) {
         return ResponseEntity.ok(qnaService.saveAnswer(questionId, reqDto));
     }
 
+    /**
+     * 질문 리스트를 가져온다.
+     * @param pageIndex 페이지 인덱스
+     * @param pageSize 페이지 사이즈
+     * @return 질문 리스트(Page)
+     */
     @GetMapping("/list")
     public ResponseEntity<Page<QuestionResDto>> getQuestionList(
             @RequestParam(defaultValue = "0") Integer pageIndex,
