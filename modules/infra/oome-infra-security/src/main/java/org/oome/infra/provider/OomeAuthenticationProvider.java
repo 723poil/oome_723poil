@@ -52,7 +52,7 @@ public class OomeAuthenticationProvider implements AuthenticationProvider {
                 loginResVo = LoginResVo.builder()
                         .username(rs.getUsername())
                         .password(rs.getPassword())
-                        .memberRoles(rs.getMemberRoles())
+                        .roles(rs.getRoles())
                         .build();
             }
         } catch (IllegalArgumentException ex) {
@@ -61,7 +61,7 @@ public class OomeAuthenticationProvider implements AuthenticationProvider {
             throw new AuthenticationLoginInfoCheckRuntimeException(ex.getMessage(), ex);
         }
 
-        List<SimpleGrantedAuthority> authorities = loginResVo.getMemberRoles().stream()
+        List<SimpleGrantedAuthority> authorities = loginResVo.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole()))
                 .collect(Collectors.toList());
 

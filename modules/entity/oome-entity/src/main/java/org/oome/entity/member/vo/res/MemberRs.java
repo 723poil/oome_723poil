@@ -19,12 +19,12 @@ public class MemberRs implements Serializable {
 
     private String password;
 
-    private Set<MemberRole> memberRoles;
+    private Set<MemberRole> roles;
 
     @Builder
     public MemberRs(Member entity) {
         this.username = entity.getUsername();
         this.password = entity.getPassword();
-        this.memberRoles = entity.getMemberRoles();
+        this.roles = entity.getRoles();
     }
 }

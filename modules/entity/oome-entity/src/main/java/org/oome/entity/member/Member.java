@@ -28,5 +28,5 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
-    private Set<MemberRole> memberRoles;
+    private Set<MemberRole> roles;
 }

@@ -2,7 +2,6 @@ package org.oome;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.oome.core.api.utils.OomeStringUtils;
 import org.oome.entity.enums.MemberRole;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
@@ -45,19 +44,19 @@ public class OomeWebLocalApplication implements CommandLineRunner {
         memberList.add(Member.builder()
                 .username("user")
                 .password(passwordEncoder.encode("1234"))
-                .memberRoles(commonRole)
+                .roles(commonRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("1234"))
-                .memberRoles(adminRole)
+                .roles(adminRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("dev")
                 .password(passwordEncoder.encode("1234"))
-                .memberRoles(developerRole)
+                .roles(developerRole)
                 .build());
 
         memberJpaRepository.saveAll(memberList);

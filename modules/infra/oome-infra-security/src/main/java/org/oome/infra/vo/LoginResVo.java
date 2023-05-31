@@ -17,5 +17,5 @@ public class LoginResVo {
 
     private String password;
 
-    private Set<MemberRole> memberRoles;
+    private Set<MemberRole> roles;
 }
