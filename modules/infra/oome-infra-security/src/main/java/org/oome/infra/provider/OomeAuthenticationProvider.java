@@ -1,7 +1,6 @@
 package org.oome.infra.provider;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.entity.member.vo.res.MemberRs;
@@ -13,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 public class OomeAuthenticationProvider implements AuthenticationProvider {
 
     private final MemberJpaRepository memberJpaRepository;
-
-    private final ModelMapper modelMapper;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -66,7 +64,10 @@ public class OomeAuthenticationProvider implements AuthenticationProvider {
                 .collect(Collectors.toList());
 
         AuthorizedUser user = new AuthorizedUser(loginResVo, false, false, false, false, authorities);
-        return new UsernamePasswordAuthenticationToken(user, password, authorities);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, password, authorities);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return token;
     }
 
     @Override

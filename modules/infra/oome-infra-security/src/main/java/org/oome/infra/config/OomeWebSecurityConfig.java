@@ -60,9 +60,9 @@ public class OomeWebSecurityConfig {
                 ).filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        SecurityFilterChain filterChain = http.httpBasic().disable()
+        SecurityFilterChain filterChain = http
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
@@ -95,11 +95,10 @@ public class OomeWebSecurityConfig {
     }
 
     @Bean
-    public OomeAuthenticationProvider oomeAuthenticationProvider() {
+    public OomeAuthenticationProvider oomeAuthenticationProvider() throws Exception {
         log.debug("OomeAuthenticationProvider Bean Created");
         return new OomeAuthenticationProvider(
                 memberJpaRepository,
-                modelMapper,
                 passwordEncoder()
         );
     }
