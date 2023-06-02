@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.oome.infra.service.AuthenticationService;
 import org.oome.infra.utils.SecurityUtil;
-import org.oome.infra.vo.LoginResVo;
 import org.oome.infra.vo.MemberLoginReqDto;
 import org.oome.infra.vo.TokenDto;
 import org.springframework.http.ResponseEntity;
@@ -41,11 +40,6 @@ public class AuthenticationApiController {
     @GetMapping("/user")
     public Authentication getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication();
-    }
-
-    @GetMapping("/session")
-    public LoginResVo getSessionUser() {
-        return (LoginResVo) httpSession.getAttribute("user");
     }
 
     @GetMapping("/authcheck")

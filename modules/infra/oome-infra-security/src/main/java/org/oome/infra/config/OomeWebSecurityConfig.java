@@ -58,7 +58,7 @@ public class OomeWebSecurityConfig {
                         commonUrlProperties.getUtilUrl()
                 ).filter(Objects::nonNull)
                 .collect(Collectors.toList());
-
+//        TODO: 이전 방식으로 제거해야함
 //        SecurityFilterChain filterChain = http
 //                .sessionManagement()
 //                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -90,7 +90,7 @@ public class OomeWebSecurityConfig {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/api/v1/common/auth/authcheck").hasAuthority(MemberRole.DEVELOPER.getRole())
                 .antMatchers(urlList.stream()
-                        .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyRole(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
+                        .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyAuthority(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
                 .anyRequest().permitAll()
                 .and()
                 .cors().disable()
