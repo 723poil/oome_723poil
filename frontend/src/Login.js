@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 const Login = () => {
+    const navigator = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const handleLogin = (e) => {
-        // Add your login logic here
+
         console.log('Username:', username);
         console.log('Password:', password);
-        // Reset form fields
+
         const data = {
             username: username,
             password: password
@@ -22,6 +24,8 @@ const Login = () => {
         })
             .then((response) => {
                 console.log(response.data);
+                localStorage.setItem('isLoggedIn', 'true');
+                navigator('/')
             })
             .catch(e => console.error(e))
     };

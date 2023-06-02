@@ -4,13 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.oome.infra.service.AuthenticationService;
 import org.oome.infra.vo.LoginResVo;
+import org.oome.infra.vo.MemberLoginReqDto;
+import org.oome.infra.vo.TokenDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,16 +26,16 @@ public class AuthenticationApiController {
 
     private final HttpSession httpSession;
 
-//    @PostMapping(value = "/authorize", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity<LoginResVo> login(@RequestBody @Valid LoginReqVo loginReqVo,
-//                                            HttpServletRequest request,
-//                                            HttpServletResponse response) throws Exception {
-//        log.debug("LoginRequest Accepted");
-//
-//        LoginResVo vo = authenticationService.signin(response, loginReqVo);
-//
-//        return ResponseEntity.ok(vo);
-//    }
+    @PostMapping(value = "/authorize")
+    public ResponseEntity<TokenDto> login(@RequestBody @Valid MemberLoginReqDto loginReqVo,
+                                            HttpServletRequest request,
+                                            HttpServletResponse response) throws Exception {
+        log.debug("LoginRequest Accepted");
+
+        TokenDto vo = authenticationService.login(loginReqVo);
+
+        return ResponseEntity.ok(vo);
+    }
 
     @GetMapping("/user")
     public Authentication getCurrentUser() {

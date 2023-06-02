@@ -25,12 +25,10 @@ public class JsonLoginProcessingFilter extends AbstractAuthenticationProcessingF
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        // Extract the username and password from the JSON request
         String username = null;
         String password = null;
         try {
-            // Parse the JSON request body and retrieve the username and password fields
-            // Adjust this logic based on the structure of your JSON request
+
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(request.getReader());
             username = jsonNode.get("username").asText();
@@ -46,8 +44,7 @@ public class JsonLoginProcessingFilter extends AbstractAuthenticationProcessingF
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
         log.debug("Authentication => {}", authentication);
         // Delegate the authentication to your custom authentication provider
-        return getAuthenticationManager().authenticate(authentication);
+        return super.getAuthenticationManager().authenticate(authentication);
     }
-
 
 }
