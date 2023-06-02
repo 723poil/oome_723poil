@@ -1,5 +1,10 @@
 import axios from 'axios';
+import oomeUtils from "./CommonUtils";
 
+/**
+ * 기본 api 정보
+ * @type {{EXT: {path: string, version: string}, UTILS: {path: string, version: string}, QNA: {path: string, version: string}, COMMON: {path: string, version: string}, BLOG: {path: string, version: string}}}
+ */
 const apiInfo = {
     COMMON: {
         version: 'v1',
@@ -24,6 +29,12 @@ const apiInfo = {
 }
 const oomeApi = {}
 
+/**
+ * axios를 구현한 공통 axios
+ * @param url
+ * @param options
+ * @returns {Promise<unknown>}
+ */
 oomeApi.fetchData = (url, options = {}) => {
     // 기본 옵션 설정
     const defaultOptions = {
@@ -47,6 +58,17 @@ oomeApi.fetchData = (url, options = {}) => {
         })
         .catch(error => {
             // 오류 처리
+            const errorMsg = new Error('처리중 오류가 발생했습니다.'); // 예시 오류 객체
+
+            const shouldCopyError = window.confirm(`처리중 오류가 발생했습니다. 오류 내용을 복사하시겠습니까?\n오류 내용: ${JSON.stringify(error, null, 2)}`);
+
+            if (shouldCopyError) {
+                const copiedError = JSON.stringify(errorMsg, null, 2); // JSON 예쁘게 출력
+                oomeUtils.copyToClipboard(copiedError);
+                console.log('복사된 오류 내용:', copiedError);
+            } else {
+                console.log('오류 복사를 취소하였습니다.');
+            }
             throw error;
         });
 }
