@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import oomeApi from "./common/CommonApi";
 
 const Main = () => {
     const [hello, setHello] = useState('')
 
     useEffect(() => {
-        axios.get('/api/v1/common/hello')
-            .then(response => setHello(response.data))
+        oomeApi.fetchData(oomeApi.COMMON.getUrl('/hello'))
+            .then(data => setHello(data))
             .catch(error => console.log(error))
     }, []);
 
     const handleGetUser = (e) => {
-        axios.get('/api/v1/common/auth/authcheck')
-            .then((response) => {
-                console.log(response);
+        oomeApi.fetchData(oomeApi.COMMON.getUrl('/auth/authcheck'))
+            .then((data) => {
+                console.log(data);
             });
     }
 
