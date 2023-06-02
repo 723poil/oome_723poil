@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
+import oomeApi from '../common/CommonApi'
 
 const Login = () => {
     const navigator = useNavigate();
@@ -17,19 +18,26 @@ const Login = () => {
             password: password
         }
 
-        axios.post('/api/v1/common/auth/authorize', data, {
+        oomeApi.fetchData(oomeApi.COMMON.getUrl('/auth/authorize'), {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => {
-                console.log(response.data);
-                const token = response.data.accessToken;
+            },
+            data: data
+        }).then((data) => {
+            const token = data.accessToken;
+            if (token !== null) {
                 localStorage.setItem('isLoggedIn', 'true');
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // 토큰을 헤더에 추가
                 navigator('/');
-            })
-            .catch(e => console.error(e))
+            } else {
+                localStorage.setItem('isLoggedIn', 'false');
+            }
+
+
+        }).catch(e => console.error(e));
+
+
     };
 
     return (
