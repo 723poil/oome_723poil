@@ -18,6 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @deprecated JwtProvider사용으로 제거예정
+ * @author 한주성
+ */
+@Deprecated(since = "2023-06-02", forRemoval = true)
 @RequiredArgsConstructor
 public class OomeAuthenticationProvider implements AuthenticationProvider {
 

@@ -3,6 +3,7 @@ package org.oome.api.common.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.oome.infra.service.AuthenticationService;
+import org.oome.infra.utils.SecurityUtil;
 import org.oome.infra.vo.LoginResVo;
 import org.oome.infra.vo.MemberLoginReqDto;
 import org.oome.infra.vo.TokenDto;
@@ -45,5 +46,10 @@ public class AuthenticationApiController {
     @GetMapping("/session")
     public LoginResVo getSessionUser() {
         return (LoginResVo) httpSession.getAttribute("user");
+    }
+
+    @GetMapping("/authcheck")
+    public ResponseEntity<Long> getLoginMember() {
+        return ResponseEntity.ok(SecurityUtil.getCurrentMemberId());
     }
 }

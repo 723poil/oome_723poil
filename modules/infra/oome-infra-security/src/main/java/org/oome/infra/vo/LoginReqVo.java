@@ -5,6 +5,11 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * @deprecated Dto 재생산으로 제거예정
+ * @author 한주성
+ */
+@Deprecated(since = "2023-06-02", forRemoval = true)
 @Setter
 @Getter
 public class LoginReqVo implements Serializable {

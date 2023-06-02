@@ -7,6 +7,11 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
+/**
+ * @deprecated UserDetails 직접반환으로 제거예정
+ * @author 한주성
+ */
+@Deprecated(since = "2023-06-02", forRemoval = true)
 @Getter
 public class AuthorizedUser extends User {
 

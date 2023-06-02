@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @deprecated JWT 토큰 방식으로 전환됨에 따라 제거예정
+ * @author 한주성
+ */
+@Deprecated(since = "2023-06-02", forRemoval = true)
 @Slf4j
 public class JsonLoginProcessingFilter extends AbstractAuthenticationProcessingFilter {
 

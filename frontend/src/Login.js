@@ -19,13 +19,15 @@ const Login = () => {
 
         axios.post('/api/v1/common/auth/authorize', data, {
             headers: {
-                'Content-Type': "application/json"
+                'Content-Type': 'application/json'
             }
         })
             .then((response) => {
                 console.log(response.data);
+                const token = response.data.accessToken;
                 localStorage.setItem('isLoggedIn', 'true');
-                navigator('/')
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // 토큰을 헤더에 추가
+                navigator('/');
             })
             .catch(e => console.error(e))
     };
@@ -33,19 +35,17 @@ const Login = () => {
     return (
         <div>
             <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <label>
-                    Username:
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </label>
-                <br />
-                <label>
-                    Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </label>
-                <br />
-                <button type="submit">Login</button>
-            </form>
+            <label>
+                Username:
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </label>
+            <br />
+            <label>
+                Password:
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <br />
+            <button type="button" onClick={handleLogin}>Login</button>
         </div>
     );
 };

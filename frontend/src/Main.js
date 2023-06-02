@@ -10,10 +10,18 @@ const Main = () => {
             .catch(error => console.log(error))
     }, []);
 
+    const handleGetUser = (e) => {
+        axios.get('/api/v1/common/auth/authcheck')
+            .then((response) => {
+                console.log(response);
+            });
+    }
+
     return (
         <div>
             <div>
                 {hello}
+                <button type={"button"} onClick={handleGetUser}>USER GET</button>
             </div>
         </div>
     );

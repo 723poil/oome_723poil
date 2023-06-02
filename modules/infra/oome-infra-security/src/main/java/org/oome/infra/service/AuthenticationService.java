@@ -1,14 +1,12 @@
 package org.oome.infra.service;
 
 import lombok.RequiredArgsConstructor;
-import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.infra.jwt.TokenProvider;
 import org.oome.infra.vo.MemberLoginReqDto;
 import org.oome.infra.vo.TokenDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -16,8 +14,7 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final AuthenticationManagerBuilder managerBuilder;
-    private final MemberJpaRepository memberJpaRepository;
-    private final PasswordEncoder passwordEncoder;
+
     private final TokenProvider tokenProvider;
 
     public TokenDto login(MemberLoginReqDto reqDto) {
