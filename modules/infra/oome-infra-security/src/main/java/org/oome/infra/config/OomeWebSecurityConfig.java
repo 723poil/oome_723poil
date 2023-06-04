@@ -88,7 +88,7 @@ public class OomeWebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/api/v1/common/auth/authcheck").hasAuthority(MemberRole.DEVELOPER.getRole())
+                .antMatchers(commonUrlProperties.getCommonApi("/auth/authcheck")).hasAuthority(MemberRole.DEVELOPER.getRole())
                 .antMatchers(urlList.stream()
                         .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyAuthority(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
                 .anyRequest().permitAll()

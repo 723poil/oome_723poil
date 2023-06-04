@@ -16,4 +16,24 @@ public class CommonUrlProperties {
     private String utilUrl;
 
     private String extUrl;
+
+    public String getCommonApi(String url) {
+        return this.getCommonUrl() + url;
+    }
+
+    public String getQnaApi(String url) {
+        return this.getQnaUrl() + url;
+    }
+
+    public String getUtilApi(String url) {
+        return this.getUtilUrl() + url;
+    }
+
+    public String getBlogApi(String url) {
+        return this.getBlogUrl() + url;
+    }
+
+    public String getExtApi(String url) {
+        return this.getExtUrl() + url;
+    }
 }

@@ -18,9 +18,9 @@ const apiInfo = {
         version: 'v1',
         path: 'blog'
     },
-    UTILS: {
+    UTIL: {
         version: 'v1',
-        path: 'utils'
+        path: 'util'
     },
     EXT: {
         version: 'v1',
@@ -58,19 +58,44 @@ oomeApi.fetchData = (url, options = {}) => {
         })
         .catch(error => {
             // 오류 처리
-            const errorMsg = new Error('처리중 오류가 발생했습니다.'); // 예시 오류 객체
-
-            const shouldCopyError = window.confirm(`처리중 오류가 발생했습니다. 오류 내용을 복사하시겠습니까?\n오류 내용: ${JSON.stringify(error, null, 2)}`);
-
-            if (shouldCopyError) {
-                const copiedError = JSON.stringify(errorMsg, null, 2); // JSON 예쁘게 출력
-                oomeUtils.copyToClipboard(copiedError);
-                console.log('복사된 오류 내용:', copiedError);
+            if (error.response && error.response.status === 406) {
+                // 토큰이 만료되었으므로 서버에 재발급 요청
+                return refreshToken()
+                    .then(() => {
+                        // 토큰 재발급 후에 원래 요청 다시 시도
+                        return axios(url, mergedOptions);
+                    })
+                    .then(response => {
+                        // 응답 처리
+                        return response.data;
+                    })
+                    .catch(error => {
+                        // 재시도 후에도 오류가 발생하면 처리
+                        alert('처리중 오류가 발생했습니다.\n' + JSON.stringify(error));
+                        console.log(JSON.stringify(error, null, 2));
+                        throw error;
+                    });
             } else {
-                console.log('오류 복사를 취소하였습니다.');
+                // 다른 오류 처리
+                alert('처리중 오류가 발생했습니다.\n' + JSON.stringify(error));
+                console.log(JSON.stringify(error, null, 2));
+                throw error;
             }
-            throw error;
         });
+}
+
+// 토큰 재발급 요청 함수
+const refreshToken = () => {
+    // TODO: 토큰 재발급 요청 로직 구현
+    //  이 함수에서는 서버에 토큰 재발급을 요청하고, 새로운 토큰을 받아와서 적절한 처리를 해야 함.
+    //  localStorage에 새로운 토큰을 저장하거나, 인증 헤더를 업데이트하는 등의 작업이 필요할 수 있음.
+    //  이 예제에서는 refreshToken 함수를 통해 토큰 재발급 요청을 한다고 가정하고, 그 결과로 Promise를 리턴.
+    return new Promise((resolve, reject) => {
+        // TODO: 토큰 재발급 요청 로직 구현
+        //  axios를 사용하여 서버에 토큰 재발급을 요청하고, Promise를 사용하여 결과를 처리할 수 있다.
+        //  axios.post('/refresh-token').then(response => { ... }) 등으로 구현 가능.
+        //  토큰 재발급에 성공하면 resolve()를 호출하고, 실패하면 reject()를 호출.
+    });
 }
 
 oomeApi.COMMON = {
@@ -89,12 +114,12 @@ oomeApi.QNA = {
         return `${oomeApi.QNA.getUrl()}/admin${url}`;
     }
 }
-oomeApi.UTILS = {
+oomeApi.UTIL = {
     getUrl: (url) => {
-        return `/api/${apiInfo.UTILS.version}/${apiInfo.UTILS.path}${url}`;
+        return `/api/${apiInfo.UTIL.version}/${apiInfo.UTIL.path}${url}`;
     },
     getAdminUrl: (url) => {
-        return `${oomeApi.UTILS.getUrl()}/admin${url}`;
+        return `${oomeApi.UTIL.getUrl()}/admin${url}`;
     }
 }
 oomeApi.BLOG = {
