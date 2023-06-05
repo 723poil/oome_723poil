@@ -25,6 +25,7 @@ const Login = () => {
             const token = data.accessToken;
             if (token !== null) {
                 localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem("expirationTime", data.tokenExpiresIn);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // 토큰을 헤더에 추가
                 navigator('/');
             } else {

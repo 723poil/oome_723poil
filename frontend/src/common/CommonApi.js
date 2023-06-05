@@ -35,6 +35,17 @@ const oomeApi = {}
  * @returns {Promise<unknown>}
  */
 oomeApi.fetchData = (url, options = {}) => {
+
+    if (isExpiredJwt()) {
+        axios.defaults.headers.common['Authorization'] = null;
+
+        const isConfirm = window.confirm('로그인이 만료되었습니다.\n다시 로그인 하시겠습니까?');
+
+        if (isConfirm) {
+            window.location.href = '/login';
+            return Promise.reject(new Error('JWT_EXPIRED'));
+        }
+    }
     // 기본 옵션 설정
     const defaultOptions = {
         method: 'GET',
@@ -95,6 +106,24 @@ const refreshToken = () => {
         //  axios.post('/refresh-token').then(response => { ... }) 등으로 구현 가능.
         //  토큰 재발급에 성공하면 resolve()를 호출하고, 실패하면 reject()를 호출.
     });
+}
+
+const isExpiredJwt = () => {
+
+    const storedExpirationDate = localStorage.getItem('expirationTime') || '0';
+    console.log(storedExpirationDate)
+    console.log(localStorage.getItem('isLoggedIn'))
+    const currentTime = new Date().getTime();
+    const adjExpirationTime = new Date(+ storedExpirationDate).getTime();
+    const remainingDuration = adjExpirationTime - currentTime;
+
+    if(storedExpirationDate !== '0' && remainingDuration <= 1000) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('expirationTime');
+        return true
+    }
+
+    return false;
 }
 
 oomeApi.COMMON = {
