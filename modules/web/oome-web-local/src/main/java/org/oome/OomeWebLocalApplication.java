@@ -44,18 +44,21 @@ public class OomeWebLocalApplication implements CommandLineRunner {
         memberList.add(Member.builder()
                 .username("user")
                 .password(passwordEncoder.encode("1234"))
+                .nickname("user")
                 .roles(commonRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("1234"))
+                .nickname("admin")
                 .roles(adminRole)
                 .build());
 
         memberList.add(Member.builder()
                 .username("dev")
                 .password(passwordEncoder.encode("1234"))
+                .nickname("dev3")
                 .roles(developerRole)
                 .build());
 

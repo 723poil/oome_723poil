@@ -20,9 +20,6 @@ const Login = () => {
 
         oomeApi.fetchData(oomeApi.COMMON.getUrl('/auth/authorize'), {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             data: data
         }).then((data) => {
             const token = data.accessToken;

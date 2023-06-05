@@ -1,0 +1,13 @@
+spring:
+  freemarker:
+    cache: false
+  web:
+    resources:
+      static-locations:
+        - file:src/main/resources/static/
+        - classpath:/static/
+      cache:
+        period: 0
+#  devtools:
+#    livereload:
+#      enabled: true

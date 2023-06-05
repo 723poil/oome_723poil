@@ -1,5 +1,4 @@
 import axios from 'axios';
-import oomeUtils from "./CommonUtils";
 
 /**
  * 기본 api 정보
@@ -40,7 +39,7 @@ oomeApi.fetchData = (url, options = {}) => {
     const defaultOptions = {
         method: 'GET',
         headers: {
-            // TODO: 기본 헤더 설정
+            "Content-Type": "application/json"
         },
         // TODO: 기타 기본 옵션
     };

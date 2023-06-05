@@ -25,6 +25,9 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, unique = true)
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
