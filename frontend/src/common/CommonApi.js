@@ -36,16 +36,16 @@ const oomeApi = {}
  */
 oomeApi.fetchData = (url, options = {}) => {
 
-    if (isExpiredJwt()) {
-        axios.defaults.headers.common['Authorization'] = null;
-
-        const isConfirm = window.confirm('로그인이 만료되었습니다.\n다시 로그인 하시겠습니까?');
-
-        if (isConfirm) {
-            window.location.href = '/login';
-            return Promise.reject(new Error('JWT_EXPIRED'));
-        }
-    }
+    // if (isExpiredJwt()) {
+    //     axios.defaults.headers.common['Authorization'] = null;
+    //
+    //     const isConfirm = window.confirm('로그인이 만료되었습니다.\n다시 로그인 하시겠습니까?');
+    //
+    //     if (isConfirm) {
+    //         window.location.href = '/login';
+    //         return Promise.reject(new Error('JWT_EXPIRED'));
+    //     }
+    // }
     // 기본 옵션 설정
     const defaultOptions = {
         method: 'GET',
