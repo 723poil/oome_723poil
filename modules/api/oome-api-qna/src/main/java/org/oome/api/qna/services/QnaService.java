@@ -11,7 +11,6 @@ import org.oome.entity.question.answer.repository.AnswerJpaRepository;
 import org.oome.entity.question.repository.QuestionJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -52,11 +51,9 @@ public class QnaService {
     }
 
     @Transactional
-    public Page<QuestionResDto> getQuestionList(PageRequest pageable) {
+    public List<QuestionResDto> getQuestionList(PageRequest pageable) {
         Page<Question> questionPage = questionJpaRepository.findAll(pageable);
 
-        List<QuestionResDto> dtoList = questionPage.stream().map(QuestionResDto::new).collect(Collectors.toList());
-
-        return new PageImpl<>(dtoList, pageable, questionPage.getTotalElements());
+        return questionPage.stream().map(QuestionResDto::new).collect(Collectors.toList());
     };
 }

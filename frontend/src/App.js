@@ -4,6 +4,7 @@ import Login from './auth/Login'
 import Main from './Main'
 import NotFound from './NotFound'
 import Regist from './member/Regist'
+import QuestionList from "./qna/QuestionList";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
                   {/* 404 NotFound */}
                   <Route path="*" element={<NotFound />}></Route>
 
+                  {/* qna 관련 라우팅 */}
+                  <Route path="/qna/list" element={<QuestionList />}></Route>
 
                   {/* member 관련 라우팅 */}
                   <Route path="/member/regist" element={<Regist/>}></Route>

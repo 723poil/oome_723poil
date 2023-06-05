@@ -1,8 +1,9 @@
 package org.oome.entity.question.answer;
 
 import lombok.*;
-import org.oome.entity.question.Question;
+import org.oome.entity.common.BaseTimeEntity;
 import org.oome.entity.member.Member;
+import org.oome.entity.question.Question;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Answer {
+public class Answer extends BaseTimeEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

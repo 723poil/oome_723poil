@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.oome.entity.question.answer.Answer;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @ToString
 @Data
@@ -18,10 +19,13 @@ public class AnswerResDto implements Serializable {
 
     private String contents;
 
-    private String createrUsername;
+    private String createrNickname;
+
+    private LocalDateTime createdDate;
 
     public AnswerResDto(Answer entity) {
         this.contents = entity.getContents();
-        this.createrUsername = entity.getCreater().getUsername();
+        this.createrNickname = entity.getCreater().getNickname();
+        this.createdDate = entity.getCreatedDate();
     }
 }

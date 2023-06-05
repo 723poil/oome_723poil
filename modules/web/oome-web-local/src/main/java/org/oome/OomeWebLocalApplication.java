@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.oome.entity.enums.MemberRole;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
+import org.oome.entity.question.Question;
+import org.oome.entity.question.repository.QuestionJpaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +23,8 @@ import java.util.Set;
 public class OomeWebLocalApplication implements CommandLineRunner {
 
     private final MemberJpaRepository memberJpaRepository;
+
+    private final QuestionJpaRepository questionJpaRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -64,5 +68,27 @@ public class OomeWebLocalApplication implements CommandLineRunner {
 
         memberJpaRepository.saveAll(memberList);
         log.debug("dummy member created!!");
+
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(Question.builder()
+                .title("test title 1")
+                .contents("<h1>hello world</h1>")
+                .creater(memberJpaRepository.findByUsername("user").orElseThrow())
+                .build());
+
+        questionList.add(Question.builder()
+                .title("test title 2")
+                .contents("<h1>hello world</h1>")
+                .creater(memberJpaRepository.findByUsername("user").orElseThrow())
+                .build());
+
+        questionList.add(Question.builder()
+                .title("test title 3")
+                .contents("<h1>hello world</h1>")
+                .creater(memberJpaRepository.findByUsername("user").orElseThrow())
+                .build());
+
+        questionJpaRepository.saveAll(questionList);
+        log.debug("dummy question created!!");
     }
 }

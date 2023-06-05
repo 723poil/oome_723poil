@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.oome.entity.question.Question;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,9 @@ public class QuestionResDto implements Serializable {
 
     private List<AnswerResDto> answerList;
 
-    private String createrUsername;
+    private String createrNickname;
+
+    private LocalDateTime createdDate;
 
     public QuestionResDto(Question entity) {
         this.title = entity.getTitle();
@@ -33,6 +36,7 @@ public class QuestionResDto implements Serializable {
                 .stream()
                 .map(AnswerResDto::new)
                 .collect(Collectors.toList());
-        this.createrUsername = entity.getCreater().getUsername();
+        this.createrNickname = entity.getCreater().getNickname();
+        this.createdDate = entity.getCreatedDate();
     }
 }
