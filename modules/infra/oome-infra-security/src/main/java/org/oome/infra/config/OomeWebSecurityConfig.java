@@ -41,14 +41,6 @@ public class OomeWebSecurityConfig {
 
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-//    private final MemberJpaRepository memberJpaRepository;
-//
-//    private final ModelMapper modelMapper;
-//
-//    private final HttpSession httpSession;
-//
-//    private final OomeAuthenticationEntryPoint authenticationEntryPoint;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration) throws Exception {
         List<String> urlList = Stream.of(
@@ -59,28 +51,7 @@ public class OomeWebSecurityConfig {
                         commonUrlProperties.getUtilUrl()
                 ).filter(Objects::nonNull)
                 .collect(Collectors.toList());
-//        TODO: 이전 방식으로 제거해야함
-//        SecurityFilterChain filterChain = http
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-//                .and()
-//                .authorizeRequests()
-//                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-//                .antMatchers("/authcheck").authenticated()
-//                .antMatchers(urlList.stream()
-//                        .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyRole(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
-//                .anyRequest().permitAll()
-//                .and()
-//                .cors().disable()
-//                .csrf().disable()
-//                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-//                .and()
-//                .authenticationProvider(oomeAuthenticationProvider())
-//                .addFilterBefore(jsonLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .headers()
-//                .frameOptions().sameOrigin()
-//                .and()
-//                .build();
+
         SecurityFilterChain filterChain = http
                 .httpBasic()
                 .disable()
@@ -112,47 +83,6 @@ public class OomeWebSecurityConfig {
         log.debug("Security FilterChaining complete");
         return filterChain;
     }
-
-//    @Bean
-//    public JsonLoginProcessingFilter jsonLoginProcessingFilter() throws Exception {
-//        JsonLoginProcessingFilter filter = new JsonLoginProcessingFilter("/api/v1/common/auth/authorize");
-//        filter.setAuthenticationManager(authenticationManager());
-////        filter.setAuthenticationSuccessHandler(savedRequestAwareAuthenticationSuccessHandler());
-//        return filter;
-//    }
-//
-//    @Bean
-//    public OomeAuthenticationProvider oomeAuthenticationProvider() throws Exception {
-//        log.debug("OomeAuthenticationProvider Bean Created");
-//        return new OomeAuthenticationProvider(
-//                memberJpaRepository,
-//                passwordEncoder()
-//        );
-//    }
-
-//    @Bean
-//    public AuthenticationService authenticationService(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        log.debug("AuthenticationService Bean Created");
-//        return new AuthenticationService(
-//                authenticationManager(authenticationConfiguration),
-//                passwordEncoder(),
-//                modelMapper,
-//                httpSession
-//        );
-//    }
-//    @Bean
-//    public AuthenticationManager authenticationManager() throws Exception {
-//        log.debug("AuthenticationManager Bean Created");
-//        return new ProviderManager(oomeAuthenticationProvider());
-//    }
-//
-//    @Bean
-//    public AuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
-//        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
-//        successHandler.setUseReferer(true);
-//        log.debug("SavedRequestAwareAuthenticationSuccessHandler Bean Created");
-//        return successHandler;
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
