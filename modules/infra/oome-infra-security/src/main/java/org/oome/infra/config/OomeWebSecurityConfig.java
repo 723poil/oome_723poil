@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -91,6 +92,7 @@ public class OomeWebSecurityConfig {
                 .antMatchers(commonUrlProperties.getCommonApi("/auth/authcheck")).hasAuthority(MemberRole.DEVELOPER.getRole())
                 .antMatchers(urlList.stream()
                         .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyAuthority(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
+                .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .cors().disable()
@@ -100,7 +102,12 @@ public class OomeWebSecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider))
-                .and().build();
+                .and()
+                .headers()
+                .frameOptions()
+                .disable()
+                .and()
+                .build();
 
         log.debug("Security FilterChaining complete");
         return filterChain;
@@ -157,5 +164,12 @@ public class OomeWebSecurityConfig {
     public TraceLogger traceLogger() {
         log.debug("TraceLogger Bean Created");
         return new TraceLogger();
+    }
+
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) ->
+            web.ignoring()
+                    .antMatchers("/h2-console/**");
+
     }
 }
