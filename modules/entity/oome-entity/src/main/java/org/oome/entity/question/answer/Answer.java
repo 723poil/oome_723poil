@@ -1,7 +1,7 @@
 package org.oome.entity.question.answer;
 
 import lombok.*;
-import org.oome.entity.common.BaseTimeEntity;
+import org.oome.entity.common.audit.BaseTimeEntity;
 import org.oome.entity.member.Member;
 import org.oome.entity.question.Question;
 

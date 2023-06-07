@@ -1,7 +1,7 @@
 package org.oome.entity.menu;
 
 import lombok.*;
-import org.oome.entity.common.BaseTimeEntity;
+import org.oome.entity.common.audit.BaseTimeEntity;
 
 import javax.persistence.*;
 

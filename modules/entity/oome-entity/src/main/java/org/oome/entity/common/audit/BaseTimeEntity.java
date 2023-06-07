@@ -1,4 +1,4 @@
-package org.oome.entity.common;
+package org.oome.entity.common.audit;
 
 import lombok.Getter;
 import lombok.Setter;

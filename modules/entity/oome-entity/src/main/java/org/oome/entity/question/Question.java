@@ -1,9 +1,9 @@
 package org.oome.entity.question;
 
 import lombok.*;
-import org.oome.entity.question.answer.Answer;
-import org.oome.entity.common.BaseTimeEntity;
+import org.oome.entity.common.audit.BaseTimeEntity;
 import org.oome.entity.member.Member;
+import org.oome.entity.question.answer.Answer;
 
 import javax.persistence.*;
 import java.util.ArrayList;

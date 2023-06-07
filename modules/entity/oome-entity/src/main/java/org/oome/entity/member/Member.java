@@ -1,7 +1,8 @@
 package org.oome.entity.member;
 
 import lombok.*;
-import org.oome.entity.common.BaseTimeEntity;
+import org.oome.entity.common.audit.BaseTimeEntity;
+import org.oome.entity.common.enums.YN;
 import org.oome.entity.enums.MemberRole;
 
 import javax.persistence.*;
@@ -32,4 +33,19 @@ public class Member extends BaseTimeEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
     private Set<MemberRole> roles;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private YN isBlock;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private YN isLock;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private YN isUsernameValid;
+
+    @Column
+    private Integer failCount;
 }
