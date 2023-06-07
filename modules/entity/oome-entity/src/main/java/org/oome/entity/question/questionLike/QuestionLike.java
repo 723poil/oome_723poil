@@ -2,6 +2,7 @@ package org.oome.entity.question.questionLike;
 
 import lombok.*;
 import org.oome.entity.common.audit.BaseTimeEntity;
+import org.oome.entity.common.enums.YN;
 import org.oome.entity.member.Member;
 import org.oome.entity.question.Question;
 
@@ -20,8 +21,9 @@ public class QuestionLike extends BaseTimeEntity {
     @Id
     private Long id;
 
-    @Column
-    private boolean like;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private YN isLike;
 
     @ManyToOne
     @JoinColumn
