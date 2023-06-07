@@ -3,10 +3,12 @@ package org.oome.api.qna.services;
 import lombok.RequiredArgsConstructor;
 import org.oome.api.qna.dto.req.AnswerSaveReqDto;
 import org.oome.api.qna.dto.req.QuestionSaveReqDto;
+import org.oome.api.qna.dto.res.AnswerResDto;
 import org.oome.api.qna.dto.res.QuestionResDto;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.entity.question.Question;
+import org.oome.entity.question.answer.Answer;
 import org.oome.entity.question.answer.repository.AnswerJpaRepository;
 import org.oome.entity.question.repository.QuestionJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
@@ -55,5 +57,11 @@ public class QnaService {
         Page<Question> questionPage = questionJpaRepository.findAll(pageable);
 
         return questionPage.stream().map(QuestionResDto::new).collect(Collectors.toList());
-    };
+    }
+
+    @Transactional
+    public List<AnswerResDto> getMyAnswerList(PageRequest pageable){
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
+        return answerJpaRepository.findAllByCreater(member, pageable).stream().map(AnswerResDto::new).collect(Collectors.toList());
+    }
 }
