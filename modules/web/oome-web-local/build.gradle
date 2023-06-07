@@ -56,4 +56,10 @@ task copyReactBuildFiles(type: Copy) {
     into "$projectDir/src/main/resources/static"
 }
 
+bootRun {
+    systemProperty 'spring.profiles.active', 'local'
+    systemProperty 'jasypt.encryptor.password', 'oome123!@#'
+    systemProperty 'jwt.secret', 'c4b615d236bb9f09f3f2b9fc66a4d439a3b92be4645eacf0920dc96a58247f3141754969d8f0b3de17f8a7f147e8ebe363872a4cda718a00699b0b46b2f86e8'
+}
+
 description = 'oome-web-local'
