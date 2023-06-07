@@ -1,8 +1,8 @@
 package org.oome.infra.exception;
 
-import org.springframework.security.core.AuthenticationException;
+import org.oome.core.api.exception.explicit.BaseOomeException;
 
-public class AuthenticationJwtExpiredException extends AuthenticationException {
+public class AuthenticationJwtExpiredException extends BaseOomeException {
     public AuthenticationJwtExpiredException(String msg, Throwable cause) {
         super(msg, cause);
     }
