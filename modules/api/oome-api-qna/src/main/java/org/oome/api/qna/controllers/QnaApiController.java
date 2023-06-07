@@ -31,7 +31,7 @@ public class QnaApiController {
      * @param reqDto 질문 정보
      * @return 저장된 시퀀스(id)
      */
-    @Secured("ROLE_MEMBER")
+    //@Secured("ROLE_MEMBER")
     @PostMapping(value = "/question", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> saveQuestion(@Valid @RequestBody QuestionSaveReqDto reqDto) {
         return ResponseEntity.ok(qnaService.saveQuestion(reqDto));
@@ -43,7 +43,7 @@ public class QnaApiController {
      * @param reqDto 답변 정보
      * @return 저장된 시퀀스(id)
      */
-    @Secured("ROLE_MEMBER")
+    //@Secured("ROLE_MEMBER")
     @PostMapping(value = "/question/{questionId}/answer", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> saveAnswer(
             @PathVariable("questionId") Long questionId,
