@@ -62,7 +62,6 @@ public class QnaService {
     @Transactional
     public List<AnswerResDto> getMyAnswerList(PageRequest pageable){
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
-        return answerJpaRepository.findAllByMyAnswer(member.getUsername());
-
+        return answerJpaRepository.findAllByCreater(member, pageable).stream().map(AnswerResDto::new).collect(Collectors.toList());
     }
 }

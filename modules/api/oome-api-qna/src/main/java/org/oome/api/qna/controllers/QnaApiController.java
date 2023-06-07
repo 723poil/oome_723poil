@@ -6,6 +6,7 @@ import org.oome.api.qna.dto.req.QuestionSaveReqDto;
 import org.oome.api.qna.dto.res.AnswerResDto;
 import org.oome.api.qna.dto.res.QuestionResDto;
 import org.oome.api.qna.services.QnaService;
+import org.oome.entity.question.answer.Answer;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -72,7 +73,7 @@ public class QnaApiController {
      * @param pageSize
      * @return
      */
-    @GetMapping("/my/answer")
+    @GetMapping("/creater/answer")
     public ResponseEntity<List<AnswerResDto>> getMyAnswerList(
             @RequestParam(defaultValue = "0") Integer pageIndex,
             @RequestParam(defaultValue = "10") Integer pageSize){
