@@ -79,6 +79,5 @@ public class QnaApiController {
             @RequestParam(defaultValue = "10") Integer pageSize){
         PageRequest pageable = PageRequest.of(pageIndex, pageSize);
         return ResponseEntity.ok(qnaService.getMyAnswerList(pageable));
-
     }
 }
