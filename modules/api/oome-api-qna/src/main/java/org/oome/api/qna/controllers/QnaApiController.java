@@ -3,6 +3,7 @@ package org.oome.api.qna.controllers;
 import lombok.RequiredArgsConstructor;
 import org.oome.api.qna.dto.req.AnswerSaveReqDto;
 import org.oome.api.qna.dto.req.QuestionSaveReqDto;
+import org.oome.api.qna.dto.res.AnswerResDto;
 import org.oome.api.qna.dto.res.QuestionResDto;
 import org.oome.api.qna.services.QnaService;
 import org.springframework.data.domain.PageRequest;
@@ -63,5 +64,14 @@ public class QnaApiController {
             @RequestParam(defaultValue = "10") Integer pageSize) {
         PageRequest pageable = PageRequest.of(pageIndex, pageSize);
         return ResponseEntity.ok(qnaService.getQuestionList(pageable));
+    }
+
+    @GetMapping("/my/answer")
+    public ResponseEntity<List<AnswerResDto>> getMyAnswerList(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "10") Integer pageSize){
+        PageRequest pageable = PageRequest.of(pageIndex, pageSize);
+        return ResponseEntity.ok(qnaService.getMyAnswerList(pageable));
+
     }
 }
