@@ -66,6 +66,12 @@ public class QnaApiController {
         return ResponseEntity.ok(qnaService.getQuestionList(pageable));
     }
 
+    /**
+     * 내가 쓴 답변 리스트
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/my/answer")
     public ResponseEntity<List<AnswerResDto>> getMyAnswerList(
             @RequestParam(defaultValue = "0") Integer pageIndex,
