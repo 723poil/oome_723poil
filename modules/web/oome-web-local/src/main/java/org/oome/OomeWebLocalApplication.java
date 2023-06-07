@@ -40,47 +40,38 @@ public class OomeWebLocalApplication implements CommandLineRunner {
 //        memberList.add(Member.builder()
 //                .username("user")
 //                .password(passwordEncoder.encode("1234"))
-//                .nickname("user")
+//                .nickname("일반사용자")
 //                .roles(commonRole)
+//                .isBlock(YN.N)
+//                .isLock(YN.N)
+//                .isUsernameValid(YN.N)
+//                .failCount(0)
 //                .build());
 //
 //        memberList.add(Member.builder()
 //                .username("admin")
 //                .password(passwordEncoder.encode("1234"))
-//                .nickname("admin")
+//                .nickname("관리자")
 //                .roles(adminRole)
+//                .isBlock(YN.N)
+//                .isLock(YN.N)
+//                .isUsernameValid(YN.N)
+//                .failCount(0)
 //                .build());
 //
 //        memberList.add(Member.builder()
 //                .username("dev")
 //                .password(passwordEncoder.encode("1234"))
-//                .nickname("dev3")
+//                .nickname("개발자")
 //                .roles(developerRole)
+//                .isBlock(YN.N)
+//                .isLock(YN.N)
+//                .isUsernameValid(YN.N)
+//                .failCount(0)
 //                .build());
 //
 //        memberJpaRepository.saveAll(memberList);
 //        log.debug("dummy member created!!");
-//
-//        List<Question> questionList = new ArrayList<>();
-//        questionList.add(Question.builder()
-//                .title("test title 1")
-//                .contents("<h1>hello world</h1>")
-//                .creater(memberJpaRepository.findByUsername("user").orElseThrow())
-//                .build());
-//
-//        questionList.add(Question.builder()
-//                .title("test title 2")
-//                .contents("<h1>hello world</h1>")
-//                .creater(memberJpaRepository.findByUsername("user").orElseThrow())
-//                .build());
-//
-//        questionList.add(Question.builder()
-//                .title("test title 3")
-//                .contents("<h1>hello world</h1>")
-//                .creater(memberJpaRepository.findByUsername("user").orElseThrow())
-//                .build());
-//
-//        questionJpaRepository.saveAll(questionList);
-//        log.debug("dummy question created!!");
+
     }
 }
