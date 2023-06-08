@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @Builder
+@Deprecated
 public class AnswerSaveReqDto implements Serializable {
 
     private static final long serialVersionUID = 7168241735155120172L;

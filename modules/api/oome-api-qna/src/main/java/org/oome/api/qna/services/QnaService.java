@@ -7,6 +7,7 @@ import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.entity.qna.Qna;
 import org.oome.entity.qna.QnaType;
+import org.oome.entity.qna.qnaLike.QnaLike;
 import org.oome.entity.qna.repository.QnaJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
 import org.springframework.data.domain.Page;
@@ -21,11 +22,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class QnaService {
-
-//    private final AnswerJpaRepository answerJpaRepository;
-//
-//    private final QuestionJpaRepository questionJpaRepository;
-
     private final MemberJpaRepository memberJpaRepository;
 
     private final QnaJpaRepository qnaJpaRepository;
@@ -65,6 +61,17 @@ public class QnaService {
     public List<QnaResDto> getMyAnswerList(PageRequest pageable){
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
 //        return answerJpaRepository.findAllByCreater(member, pageable).stream().map(AnswerResDto::new).collect(Collectors.toList());
-        return qnaJpaRepository.findAllByCreater(member, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
+        return qnaJpaRepository.findAllByCreaterAndQnaType(member, QnaType.A, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<QnaResDto> getMyQuestionList(PageRequest pageable){
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
+        return qnaJpaRepository.findAllByCreaterAndQnaType(member, QnaType.Q, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
+    }
+
+
+    public Long saveQuestionLike(Long questionId, QnaLike qnaLike) {
+        return
     }
 }
