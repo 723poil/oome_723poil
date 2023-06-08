@@ -92,12 +92,16 @@ public class QnaApiController {
         return ResponseEntity.ok(qnaService.getMyQuestionList(pageable));
     }
 
+    /**
+     * 좋아요 누르면 DB에 Y로 저장되고, 다시누르면 DB에서 제거
+     * @param questionId 좋아요 누를 질문
+     * @return 0 true 1 false or save성공시 getId().
+     */
     @PostMapping("/question/{questionId}/like")
     public ResponseEntity<Long> saveQuestionLike(
-            @PathVariable("questionId") Long questionId,
-            @Valid @RequestBody QnaLike qnaLike
+            @PathVariable("questionId") Long questionId
             ){
-        return ResponseEntity.ok(qnaService.saveQuestionLike(questionId, qnaLike));
+        return ResponseEntity.ok(qnaService.saveQuestionLike(questionId));
     }
     
 }

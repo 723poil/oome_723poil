@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Builder
 public class QnaSaveReqDto implements Serializable {
 
-    private static final long serialVersionUID = 7570423749383770007L;
+    private static final long serialVersionUID = 9197904673941443999L;
 
     @Schema(description = "질문 제목")
     private String title;

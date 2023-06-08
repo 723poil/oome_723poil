@@ -3,11 +3,13 @@ package org.oome.api.qna.services;
 import lombok.RequiredArgsConstructor;
 import org.oome.api.qna.dto.req.QnaSaveReqDto;
 import org.oome.api.qna.dto.res.QnaResDto;
+import org.oome.entity.common.enums.YN;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.entity.qna.Qna;
 import org.oome.entity.qna.QnaType;
 import org.oome.entity.qna.qnaLike.QnaLike;
+import org.oome.entity.qna.qnaLike.repository.QnaLikeJpaRepository;
 import org.oome.entity.qna.repository.QnaJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.channels.IllegalChannelGroupException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,8 @@ public class QnaService {
     private final MemberJpaRepository memberJpaRepository;
 
     private final QnaJpaRepository qnaJpaRepository;
+
+    private final QnaLikeJpaRepository qnaLikeJpaRepository;
 
     @Transactional
     public Long saveQuestion(@NonNull QnaSaveReqDto reqDto) {
@@ -71,7 +76,33 @@ public class QnaService {
     }
 
 
-    public Long saveQuestionLike(Long questionId, QnaLike qnaLike) {
-        return
+    @Transactional
+    public Long saveQuestionLike(@NonNull Long questionId) {
+
+        Qna qna = qnaJpaRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalChannelGroupException::new);
+        QnaLike like = null;
+
+        //Select 유저ID에 해당하는 Question번호 존재하는가? 존재가 한다면 Y 인가 N 인가??  Y일 경우 N으로 수정 or Delete, N일 경우 Y로 isLike update.
+        try {
+            like = qnaLikeJpaRepository.findQnaLikeByCreaterAndQna(member, qna).orElseThrow(IllegalArgumentException::new);
+            like.setQna(qna);
+            like.setCreater(member);
+        } catch (IllegalArgumentException e) {
+            like = new QnaLike();
+            like.setQna(qna);
+            like.setCreater(member);
+        } catch (Exception e){
+            e.printStackTrace();
+            return 1L;
+        }
+
+        if (like.getIsLike() == null || like.getIsLike().getValue().equals("N")) {
+            like.setIsLike(YN.Y);
+            return qnaLikeJpaRepository.save(like).getId();
+        } else {
+            qnaLikeJpaRepository.delete(like);
+            return 0L;
+        }
     }
 }
