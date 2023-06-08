@@ -25,3 +25,4 @@ public ResponseEntity<QuestionResDto> getQuestionDetail(
     return ResponseEntity.ok(qnaService.getQuestionDetail(questionId));
 }
 ```
+10. 데이터를 파라미터로 받을 때는 반드시 ReqDto를 활용한다.
