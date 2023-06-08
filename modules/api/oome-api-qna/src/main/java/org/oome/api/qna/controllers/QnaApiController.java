@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.oome.api.qna.dto.req.QnaSaveReqDto;
 import org.oome.api.qna.dto.res.QnaResDto;
 import org.oome.api.qna.services.QnaService;
+import org.oome.entity.qna.qnaLike.QnaLike;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,9 +66,9 @@ public class QnaApiController {
 
     /**
      * 내가 쓴 답변 리스트
-     * @param pageIndex
-     * @param pageSize
-     * @return
+     * @param pageIndex 페이지 인덱스
+     * @param pageSize 페이지 사이즈
+     * @return 내가 쓴 답변(page)
      */
     @GetMapping("/creater/answer")
     public ResponseEntity<List<QnaResDto>> getMyAnswerList(
@@ -76,4 +77,27 @@ public class QnaApiController {
         PageRequest pageable = PageRequest.of(pageIndex, pageSize);
         return ResponseEntity.ok(qnaService.getMyAnswerList(pageable));
     }
+
+    /**
+     * 내가 쓴 질문 리스트 안에 답변 LIST도 있음
+     * @param pageIndex 페이지 인덱스
+     * @param pageSize 페이지 사이즈
+     * @return 내가 쓴 질문(page)
+     */
+    @GetMapping("/creater/question")
+    public ResponseEntity<List<QnaResDto>> getMyQuestionList(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "10") Integer pageSize){
+        PageRequest pageable = PageRequest.of(pageIndex, pageSize);
+        return ResponseEntity.ok(qnaService.getMyQuestionList(pageable));
+    }
+
+    @PostMapping("/question/{questionId}/like")
+    public ResponseEntity<Long> saveQuestionLike(
+            @PathVariable("questionId") Long questionId,
+            @Valid @RequestBody QnaLike qnaLike
+            ){
+        return ResponseEntity.ok(qnaService.saveQuestionLike(questionId, qnaLike));
+    }
+    
 }

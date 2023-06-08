@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface QnaJpaRepository extends JpaRepository<Qna, Long> {
-    List<Qna> findAllByCreater(Member creater, PageRequest pageable);
+    List<Qna> findAllByCreaterAndQnaType(Member creater, QnaType qnaType, PageRequest pageable);
 
     Page<Qna> findAllByQnaType(QnaType qnaType, Pageable pageable);
 }

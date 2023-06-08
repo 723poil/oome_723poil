@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Data
 @Setter
 @Getter
+@Deprecated
 public class QuestionResDto implements Serializable {
 
     private static final long serialVersionUID = 8226972483370313001L;

@@ -19,7 +19,6 @@ public class QnaSaveReqDto implements Serializable {
 
     private static final long serialVersionUID = 7570423749383770007L;
 
-    @NotEmpty(message = "질문 제목 {invalid.NotEmpty}")
     @Schema(description = "질문 제목")
     private String title;
 

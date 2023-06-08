@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Setter
 @Getter
+@Deprecated
 public class AnswerResDto implements Serializable {
 
     private static final long serialVersionUID = 7094577889371001454L;
