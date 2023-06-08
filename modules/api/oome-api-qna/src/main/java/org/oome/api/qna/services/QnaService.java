@@ -1,16 +1,13 @@
 package org.oome.api.qna.services;
 
 import lombok.RequiredArgsConstructor;
-import org.oome.api.qna.dto.req.AnswerSaveReqDto;
-import org.oome.api.qna.dto.req.QuestionSaveReqDto;
-import org.oome.api.qna.dto.res.AnswerResDto;
-import org.oome.api.qna.dto.res.QuestionResDto;
+import org.oome.api.qna.dto.req.QnaSaveReqDto;
+import org.oome.api.qna.dto.res.QnaResDto;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
-import org.oome.entity.question.Question;
-import org.oome.entity.question.answer.Answer;
-import org.oome.entity.question.answer.repository.AnswerJpaRepository;
-import org.oome.entity.question.repository.QuestionJpaRepository;
+import org.oome.entity.qna.Qna;
+import org.oome.entity.qna.QnaType;
+import org.oome.entity.qna.repository.QnaJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,43 +22,49 @@ import java.util.stream.Collectors;
 @Service
 public class QnaService {
 
-    private final AnswerJpaRepository answerJpaRepository;
-
-    private final QuestionJpaRepository questionJpaRepository;
+//    private final AnswerJpaRepository answerJpaRepository;
+//
+//    private final QuestionJpaRepository questionJpaRepository;
 
     private final MemberJpaRepository memberJpaRepository;
 
+    private final QnaJpaRepository qnaJpaRepository;
 
     @Transactional
-    public Long saveQuestion(@NonNull QuestionSaveReqDto reqDto) {
+    public Long saveQuestion(@NonNull QnaSaveReqDto reqDto) {
 
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
+//        reqDto.setCreater(member);
+//        return questionJpaRepository.save(reqDto.toEntity()).getId();
+        reqDto.setQnaType(QnaType.Q);
         reqDto.setCreater(member);
-        return questionJpaRepository.save(reqDto.toEntity()).getId();
+        return qnaJpaRepository.save(reqDto.toEntity()).getId();
     }
 
     @Transactional
-    public Long saveAnswer(Long questionId, @NonNull AnswerSaveReqDto reqDto) {
+    public Long saveAnswer(@NonNull Long parentId, @NonNull QnaSaveReqDto reqDto) {
 
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
-        Question question = questionJpaRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
-
-        reqDto.setQuestion(question);
+//        Question question = questionJpaRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
+        Qna qna = qnaJpaRepository.findById(parentId).orElseThrow(IllegalArgumentException::new);
+        reqDto.setQnaType(QnaType.A);
+        reqDto.setParentQna(qna);
         reqDto.setCreater(member);
 
-        return answerJpaRepository.save(reqDto.toEntity()).getId();
+        return qnaJpaRepository.save(reqDto.toEntity()).getId();
     }
 
     @Transactional
-    public List<QuestionResDto> getQuestionList(PageRequest pageable) {
-        Page<Question> questionPage = questionJpaRepository.findAll(pageable);
+    public List<QnaResDto> getQnaList(PageRequest pageable) {
+        Page<Qna> qnaPageList = qnaJpaRepository.findAllByQnaType(QnaType.Q, pageable);
 
-        return questionPage.stream().map(QuestionResDto::new).collect(Collectors.toList());
+        return qnaPageList.stream().map(QnaResDto::new).collect(Collectors.toList());
     }
 
     @Transactional
-    public List<AnswerResDto> getMyAnswerList(PageRequest pageable){
+    public List<QnaResDto> getMyAnswerList(PageRequest pageable){
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
-        return answerJpaRepository.findAllByCreater(member, pageable).stream().map(AnswerResDto::new).collect(Collectors.toList());
+//        return answerJpaRepository.findAllByCreater(member, pageable).stream().map(AnswerResDto::new).collect(Collectors.toList());
+        return qnaJpaRepository.findAllByCreater(member, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
     }
 }

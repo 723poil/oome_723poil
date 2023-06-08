@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Deprecated
 @Repository
 public interface AnswerJpaRepository extends JpaRepository<Answer, Long> {
     List<Answer> findAllByCreater(Member creater, Pageable pageable);

@@ -7,8 +7,8 @@ import org.oome.entity.member.Member;
 import org.oome.entity.question.Question;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
+@Deprecated
 @Getter
 @Setter
 @NoArgsConstructor

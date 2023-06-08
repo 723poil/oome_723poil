@@ -5,6 +5,7 @@ import org.oome.entity.question.Question;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
+@Deprecated
 @Repository
 public class ArticleQuerydslRepository extends QuerydslRepositorySupport {
 

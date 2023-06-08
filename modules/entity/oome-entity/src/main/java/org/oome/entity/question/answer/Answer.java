@@ -7,6 +7,7 @@ import org.oome.entity.question.Question;
 
 import javax.persistence.*;
 
+@Deprecated
 @Getter
 @Setter
 @NoArgsConstructor

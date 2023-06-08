@@ -1,21 +1,20 @@
-package org.oome.entity.question.answer.answerLike;
+package org.oome.entity.qna.qnaLike;
 
 import lombok.*;
 import org.oome.entity.common.enums.YN;
 import org.oome.entity.member.Member;
-import org.oome.entity.question.Question;
-import org.oome.entity.question.answer.Answer;
+import org.oome.entity.qna.Qna;
 
 import javax.persistence.*;
 
-@Deprecated
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class AnswerLike {
+public class QnaLike {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -25,14 +24,8 @@ public class AnswerLike {
     private YN isLike;
 
     @ManyToOne
-    @JoinColumn
-    private Question question;
+    private Qna qna;
 
     @ManyToOne
-    @JoinColumn
-    private Answer answer;
-
-    @ManyToOne
-    @JoinColumn
     private Member creater;
 }
