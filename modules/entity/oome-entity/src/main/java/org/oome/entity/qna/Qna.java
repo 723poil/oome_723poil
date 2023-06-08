@@ -34,7 +34,7 @@ public class Qna extends BaseTimeEntity {
     @ManyToOne
     private Qna parentQna;
 
-    @OneToMany(mappedBy = "parentQna", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentQna", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Qna> answerList;
 
     @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
