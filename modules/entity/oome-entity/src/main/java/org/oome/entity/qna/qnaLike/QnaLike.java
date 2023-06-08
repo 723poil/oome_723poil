@@ -20,7 +20,7 @@ public class QnaLike {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private YN isLike;
 
     @ManyToOne
