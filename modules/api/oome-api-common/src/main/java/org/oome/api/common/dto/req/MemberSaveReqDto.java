@@ -1,5 +1,6 @@
 package org.oome.api.common.dto.req;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.oome.core.api.validation.annotations.Email;
 import org.oome.entity.common.enums.Gender;
@@ -36,7 +37,9 @@ public class MemberSaveReqDto {
 
     private String githubUrl;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime birth;
+    
     public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member
                 .builder()
