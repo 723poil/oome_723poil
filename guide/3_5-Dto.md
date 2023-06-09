@@ -62,4 +62,19 @@ public QnaResDto(Qna entity) {
     this.createdDate = entity.getCreatedDate();
 }
 ```
+8. 날짜형식을 받아야 하는 경우
+```java
+// 날짜 + 시간일 경우 LocalDateTime으로 지정
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+private LocalDateTime someDateTime;
 
+// 날짜만 있는경우 LocalDate로 지정
+@JsonFormat(pattern = "yyyy-MM-dd")
+private LocalDate someDate;
+
+public MyEntity toEntity() {
+    return MyEntity.builder()
+        .someDateTime(someDate.asStartOfDay()) // LocalDate => LocalDateTime형식으로 변환
+        .build();
+}
+```

@@ -10,7 +10,7 @@ import org.oome.entity.member.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -37,9 +37,9 @@ public class MemberSaveReqDto {
 
     private String githubUrl;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime birth;
-    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDate birth;
+
     public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member
                 .builder()
@@ -54,7 +54,7 @@ public class MemberSaveReqDto {
                 .phoneNumber(phoneNumber)
                 .gender(gender)
                 .githubUrl(githubUrl)
-                .birth(birth)
+                .birth(birth.atStartOfDay())
                 .build();
     }
 }
