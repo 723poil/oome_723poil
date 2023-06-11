@@ -10,6 +10,12 @@ OOME(OutOfMemoryError)는 StackOverFlow에서 영감을 받아 제작된 개발�
 - SpringBoot (2.7.10)
 - JAVA (JDK 11)
 - React (18.2.0)
+
+### 필수 설치
+- [JDK ver.11](https://www.oracle.com/kr/java/technologies/javase/jdk11-archive-downloads.html)
+- [node.js 18.12.1 (LTS)](https://nodejs.org/ko)
+- [IntelliJ](https://www.jetbrains.com/idea/)
+
 ### 개발 가이드
 
 #### 목차
