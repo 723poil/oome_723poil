@@ -81,9 +81,10 @@ public class QnaService {
 
         Qna qna = qnaJpaRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalChannelGroupException::new);
-        QnaLike like = null;
+        QnaLike like;
 
         //Select 유저ID에 해당하는 Question번호 존재하는가? 존재가 한다면 Y 인가 N 인가??  Y일 경우 N으로 수정 or Delete, N일 경우 Y로 isLike update.
+        //TODO 화면을 어떻게 기획할건지에 따라 로직 수정 필요.
         try {
             like = qnaLikeJpaRepository.findQnaLikeByCreaterAndQna(member, qna).orElseThrow(IllegalArgumentException::new);
             like.setQna(qna);
