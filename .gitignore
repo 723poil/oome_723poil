@@ -32,3 +32,5 @@
 /frontend/npm-debug.log*
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
+
+h2_db.mv.db
