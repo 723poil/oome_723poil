@@ -1,23 +1,28 @@
 spring:
   datasource:
-    url: jdbc:log4jdbc:mysql://34.64.157.74:3306/oome
+#    url: jdbc:log4jdbc:mysql://34.64.157.74:3306/oome
+    url: jdbc:log4jdbc:h2:file:./h2_db
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    username: root
-    password: oome123!@#
-
+    username: sa
+    password:
+#    username: root
+#    password: oome123!@#
   jpa:
     show-sql: false
-    database: mysql
+    database: h2
     hibernate:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     open-in-view: false
     defer-datasource-initialization: true
+
   h2:
     console:
       enabled: true
-      path: /h2-console
+      settings:
+        web-allow-others: true
+
   redis:
     host: 34.168.141.30
     port: 6379

@@ -70,7 +70,7 @@ public class OomeWebSecurityConfig {
                 .anyRequest().permitAll()
                 .and()
                 .cors().disable()
-                .csrf().disable()
+                .csrf().ignoringAntMatchers("/h2-console/**").disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
