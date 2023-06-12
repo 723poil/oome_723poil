@@ -10,6 +10,7 @@ import org.oome.entity.qna.Qna;
 import org.oome.entity.qna.QnaType;
 import org.oome.entity.qna.qnaLike.QnaLike;
 import org.oome.entity.qna.qnaLike.repository.QnaLikeJpaRepository;
+import org.oome.entity.qna.qnaTag.repository.QnaTagJpaRepository;
 import org.oome.entity.qna.repository.QnaJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,8 @@ public class QnaService {
 
     private final QnaLikeJpaRepository qnaLikeJpaRepository;
 
+    private final QnaTagJpaRepository qnaTagJpaRepository;
+
     @Transactional
     public Long saveQuestion(@NonNull QnaSaveReqDto reqDto) {
 
@@ -39,6 +42,7 @@ public class QnaService {
 //        return questionJpaRepository.save(reqDto.toEntity()).getId();
         reqDto.setQnaType(QnaType.Q);
         reqDto.setCreater(member);
+
         return qnaJpaRepository.save(reqDto.toEntity()).getId();
     }
 
@@ -106,4 +110,9 @@ public class QnaService {
             return 0L;
         }
     }
+
+//    @Transactional
+//    public void saveQnaTag(@NonNull ){
+//        qnaTagJpaRepository.save();
+//    }
 }

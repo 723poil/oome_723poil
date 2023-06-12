@@ -4,6 +4,7 @@ import lombok.*;
 import org.oome.entity.common.audit.BaseTimeEntity;
 import org.oome.entity.member.Member;
 import org.oome.entity.qna.qnaLike.QnaLike;
+import org.oome.entity.qna.qnaTag.QnaTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -38,7 +39,10 @@ public class Qna extends BaseTimeEntity {
     private List<Qna> answerList;
 
     @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QnaLike> likeList = new ArrayList<>();
+    private List<QnaLike> likeList;
+
+    @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QnaTag> tagList;
 
     @ManyToOne
     private Member creater;
