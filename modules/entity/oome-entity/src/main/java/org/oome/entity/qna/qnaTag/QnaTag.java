@@ -5,7 +5,6 @@ import org.oome.entity.common.audit.BaseTimeEntity;
 import org.oome.entity.qna.Qna;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +20,9 @@ public class QnaTag extends BaseTimeEntity {
 
     @Column
     private String tag;
+
+    @Column
+    private Integer count;
 
     @ManyToOne
     @JoinColumn(nullable = false)

@@ -10,6 +10,7 @@ import org.oome.entity.qna.Qna;
 import org.oome.entity.qna.QnaType;
 import org.oome.entity.qna.qnaLike.QnaLike;
 import org.oome.entity.qna.qnaLike.repository.QnaLikeJpaRepository;
+import org.oome.entity.qna.qnaTag.QnaTag;
 import org.oome.entity.qna.qnaTag.repository.QnaTagJpaRepository;
 import org.oome.entity.qna.repository.QnaJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.channels.IllegalChannelGroupException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -110,6 +112,13 @@ public class QnaService {
             return 0L;
         }
     }
+    
+//    @Transactional
+//    public List<QnaResDto> getQnaTagList(@NonNull Long parentId){
+//        Qna qna = qnaJpaRepository.findById(parentId).orElseThrow(IllegalArgumentException::new);
+//        //return qnaTagJpaRepository.findAllById(parentId).stream().map(QnaResDto::new).collect(Collectors.toList());
+//        return qna.getTagList().stream().map(QnaResDto::new).collect(Collectors.toList());
+//    }
 
 //    @Transactional
 //    public void saveQnaTag(@NonNull ){

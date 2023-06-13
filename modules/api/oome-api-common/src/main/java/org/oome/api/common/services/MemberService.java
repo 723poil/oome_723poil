@@ -11,6 +11,7 @@ import org.oome.infra.email.dto.EmailSendDto;
 import org.oome.infra.email.service.MailSendService;
 import org.oome.infra.redis.hash.server1.AuthCode;
 import org.oome.infra.redis.hash.server1.AuthCodeRedisRepository;
+import org.oome.infra.utils.SecurityUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,7 @@ public class MemberService {
     public void sendAuthCode(String email) {
 
         int authCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
 
         authCodeRedisRepository.save(
                 AuthCode.builder()
@@ -52,7 +54,13 @@ public class MemberService {
                 EmailSendDto.builder()
                         .to(email)
                         .subject("[OOME] 다음 인증번호를 입력하세요.")
-                        .message(S.f("인증번호 : {0}", String.valueOf(authCode)))
+                        .message(S.f(member.getNickname() + "님, 안녕하세요.\n" +
+                                "OOME와 함께해주셔서 감사합니다.\n" +
+                                "이메일 주소를 인증해주세요.\n" +
+                                "인증번호 : {0}", String.valueOf(authCode) +
+                                "감사합니다. \n" +
+                                "OOME 드림.\n\n" +
+                                "문의사항은 고객센터를 이용해주세요."))
                         .build()
         );
 

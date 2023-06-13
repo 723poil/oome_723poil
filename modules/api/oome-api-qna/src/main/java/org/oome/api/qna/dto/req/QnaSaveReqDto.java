@@ -37,6 +37,9 @@ public class QnaSaveReqDto implements Serializable {
     @Schema(description = "답변일 경우")
     private Qna parentQna;
 
+    @Schema(description = "태그")
+    private List<QnaTag> tagList;
+
     public Qna toEntity() {
         if (qnaType.equals(QnaType.A) && ObjectUtils.isEmpty(parentQna)) {
             throw new IllegalArgumentException("부모 QNA가 비어있습니다.");
@@ -48,6 +51,7 @@ public class QnaSaveReqDto implements Serializable {
                 .creater(creater)
                 .qnaType(qnaType)
                 .parentQna(parentQna)
+                .tagList(tagList)
                 .build();
     }
 }

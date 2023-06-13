@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.oome.entity.qna.Qna;
 import org.oome.entity.qna.QnaType;
+import org.oome.entity.qna.qnaTag.QnaTag;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,9 +25,13 @@ public class QnaResDto {
 
     private List<QnaResDto> answerList;
 
+//    private List<QnaTag> tagList;
+
     private String createrNickname;
 
     private LocalDateTime createdDate;
+
+    private List<QnaTagResDto> tagList;
 
     public QnaResDto(Qna entity) {
         this.title = entity.getTitle();
@@ -37,8 +42,10 @@ public class QnaResDto {
                     .stream()
                     .map(QnaResDto::new)
                     .collect(Collectors.toList());
+//            this.tagList = entity.getTagList();
         }
         this.createrNickname = entity.getCreater().getNickname();
         this.createdDate = entity.getCreatedDate();
+        this.tagList = entity.getTagList().stream().map(QnaTagResDto::new).collect(Collectors.toList());
     }
 }

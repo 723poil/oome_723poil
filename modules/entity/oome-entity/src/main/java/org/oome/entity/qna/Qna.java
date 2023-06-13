@@ -40,6 +40,9 @@ public class Qna extends BaseTimeEntity {
     @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QnaLike> likeList;
 
+    @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QnaTag> tagList;
+
     @ManyToOne
     private Member creater;
 
