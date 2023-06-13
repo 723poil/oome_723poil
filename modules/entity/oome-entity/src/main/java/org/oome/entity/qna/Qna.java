@@ -7,7 +7,6 @@ import org.oome.entity.qna.qnaLike.QnaLike;
 import org.oome.entity.qna.qnaTag.QnaTag;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -40,9 +39,6 @@ public class Qna extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QnaLike> likeList;
-
-    @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QnaTag> tagList;
 
     @ManyToOne
     private Member creater;
