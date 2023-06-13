@@ -60,7 +60,7 @@ public class MemberService {
 
     public String matchAuthCOde(EmailAuthReqDto reqDto) {
 
-        AuthCode redisHash = authCodeRedisRepository.findById(reqDto.getEmail()).orElseThrow(IllegalArgumentException::new);
+        AuthCode redisHash = authCodeRedisRepository.findById(reqDto.getEmail()).orElse(null);
 
         if (ObjectUtils.isNotEmpty(redisHash)) { // 대조결과가 맞으면
             if (redisHash.getAuthcode().equals(reqDto.getAuthCode())) {
