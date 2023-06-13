@@ -6,3 +6,4 @@
 3. [Service](3_3-Service.md)
 4. [Entity](3_4-Entity.md)
 5. [Dto](3_5-Dto.md)
+6. [Utils](3_6-Utils.md)

@@ -78,3 +78,5 @@ public MyEntity toEntity() {
         .build();
 }
 ```
+9. QueryProjection 또는 QueryDsl을 활용할 때 사용되는 QEntity는 oome-domain의 compileJava Task가 끝나면 생성된다.
+10. 이에 IntelliJ gradle => oome => oome-domin => other => compileJava Task를 Run하거나 프로젝트 루트경로에서 다음과 같이 명령한다 ./gradlew :oome-domain:compileJava
