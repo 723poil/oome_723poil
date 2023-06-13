@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.oome.api.common.dto.req.EmailAuthReqDto;
 import org.oome.api.common.dto.req.MemberSaveReqDto;
+import org.oome.core.api.exception.runtime.NotValidUsernameAcceptOomeRuntimeException;
 import org.oome.core.utils.S;
+import org.oome.entity.common.enums.YN;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
 import org.oome.infra.email.dto.EmailSendDto;
@@ -32,6 +34,10 @@ public class MemberService {
 
     @Transactional
     public String saveMember(MemberSaveReqDto reqDto) {
+        if (reqDto.getIsUsernameValid().equals(YN.N)) {
+            throw new NotValidUsernameAcceptOomeRuntimeException("인증되지 않은 이메일 주소입니다.");
+        }
+
         Member entity = reqDto.toEntity(passwordEncoder);
 
         return memberJpaRepository.save(entity).getUsername();
@@ -46,7 +52,7 @@ public class MemberService {
                 AuthCode.builder()
                         .id(email)
                         .authcode(String.valueOf(authCode))
-                        .expiration(System.currentTimeMillis() + 300000)
+                        .expiration(300000L) // 5분간 유지한다.
                         .build()
         );
 
@@ -66,7 +72,7 @@ public class MemberService {
 
     }
 
-    public String matchAuthCOde(EmailAuthReqDto reqDto) {
+    public String matchAuthCode(EmailAuthReqDto reqDto) {
 
         AuthCode redisHash = authCodeRedisRepository.findById(reqDto.getEmail()).orElse(null);
 

@@ -38,6 +38,6 @@ public class MemberApiController {
     @PostMapping("/verify")
     public ResponseEntity<String> matchAuthCode(@RequestBody EmailAuthReqDto emailAuthReqDto) {
 
-        return ResponseEntity.ok(memberService.matchAuthCOde(emailAuthReqDto));
+        return ResponseEntity.ok(memberService.matchAuthCode(emailAuthReqDto));
     }
 }

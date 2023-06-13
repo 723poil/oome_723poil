@@ -31,6 +31,8 @@ public class MemberSaveReqDto {
     @NotEmpty(message = "닉네임 : {invalid.NotEmpty}")
     private String nickname;
 
+    private YN isUsernameValid;
+
     private String phoneNumber;
 
     private Gender gender;
@@ -49,7 +51,7 @@ public class MemberSaveReqDto {
                 .roles(new HashSet<>(Collections.singleton(MemberRole.MEMBER)))
                 .isLock(YN.N)
                 .isBlock(YN.N)
-                .isUsernameValid(YN.N)
+                .isUsernameValid(isUsernameValid)
                 .failCount(0)
                 .phoneNumber(phoneNumber)
                 .gender(gender)

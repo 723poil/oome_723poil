@@ -52,3 +52,4 @@ public class MyEntity extends BaseTimeEntity {
 }
 ```
 10. Entity에 날짜와 관련된 데이터가 있는 경우 무조건 LocalDateTime형식으로 처리한다.
+11. Boolean성 데이터를 추가할 때는 YnEnum을 사용한다.

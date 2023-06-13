@@ -3,6 +3,7 @@ package org.oome.api.qna.services;
 import lombok.RequiredArgsConstructor;
 import org.oome.api.qna.dto.req.QnaSaveReqDto;
 import org.oome.api.qna.dto.res.QnaResDto;
+import org.oome.core.api.exception.runtime.SecurityContextAuthenticationEmptyException;
 import org.oome.entity.common.enums.YN;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
@@ -51,7 +52,7 @@ public class QnaService {
     @Transactional
     public Long saveAnswer(@NonNull Long parentId, @NonNull QnaSaveReqDto reqDto) {
 
-        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(SecurityContextAuthenticationEmptyException::new);
 //        Question question = questionJpaRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
         Qna qna = qnaJpaRepository.findById(parentId).orElseThrow(IllegalArgumentException::new);
         reqDto.setQnaType(QnaType.A);
@@ -70,14 +71,14 @@ public class QnaService {
 
     @Transactional
     public List<QnaResDto> getMyAnswerList(PageRequest pageable){
-        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(SecurityContextAuthenticationEmptyException::new);
 //        return answerJpaRepository.findAllByCreater(member, pageable).stream().map(AnswerResDto::new).collect(Collectors.toList());
         return qnaJpaRepository.findAllByCreaterAndQnaType(member, QnaType.A, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
     }
 
     @Transactional
     public List<QnaResDto> getMyQuestionList(PageRequest pageable){
-        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(SecurityContextAuthenticationEmptyException::new);
         return qnaJpaRepository.findAllByCreaterAndQnaType(member, QnaType.Q, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
     }
 
@@ -86,7 +87,7 @@ public class QnaService {
     public Long saveQuestionLike(@NonNull Long questionId) {
 
         Qna qna = qnaJpaRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
-        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalChannelGroupException::new);
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(SecurityContextAuthenticationEmptyException::new);
         QnaLike like;
 
         //Select 유저ID에 해당하는 Question번호 존재하는가? 존재가 한다면 Y 인가 N 인가??  Y일 경우 N으로 수정 or Delete, N일 경우 Y로 isLike update.
