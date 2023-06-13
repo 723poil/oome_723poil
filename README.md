@@ -27,4 +27,4 @@ OOME(OutOfMemoryError)는 StackOverFlow에서 영감을 받아 제작된 개발�
 
 Main-Collaborator
 - codegorani (core, common)
-- xoals6536 (qna)
+- KCTCplayer (qna)
