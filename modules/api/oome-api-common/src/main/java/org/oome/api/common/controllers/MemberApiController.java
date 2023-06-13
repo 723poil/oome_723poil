@@ -2,6 +2,7 @@ package org.oome.api.common.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.oome.api.common.dto.req.EmailAuthReqDto;
 import org.oome.api.common.dto.req.MemberSaveReqDto;
 import org.oome.api.common.services.MemberService;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,19 @@ public class MemberApiController {
     public ResponseEntity<String> saveMember(@Valid @RequestBody MemberSaveReqDto reqDto) {
 
         return ResponseEntity.ok(memberService.saveMember(reqDto));
+    }
+
+    @PostMapping("/authcode")
+    public ResponseEntity<String> sendAuthCode(@RequestBody EmailAuthReqDto emailAuthReqDto) {
+
+        memberService.sendAuthCode(emailAuthReqDto.getEmail());
+
+        return ResponseEntity.ok("SENDED");
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<String> matchAuthCode(@RequestBody EmailAuthReqDto emailAuthReqDto) {
+
+        return ResponseEntity.ok(memberService.matchAuthCOde(emailAuthReqDto));
     }
 }

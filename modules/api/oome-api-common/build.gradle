@@ -12,6 +12,7 @@ dependencies {
     implementation project(":oome-core-db")
 
     implementation project(":oome-entity")
+    implementation project(":oome-infra-common")
     implementation project(":oome-infra-security")
 }
 

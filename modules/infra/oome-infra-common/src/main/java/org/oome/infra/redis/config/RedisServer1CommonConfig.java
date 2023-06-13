@@ -14,7 +14,13 @@ import org.springframework.data.redis.core.RedisKeyValueAdapter;
 import org.springframework.data.redis.core.RedisKeyValueTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.mapping.RedisMappingContext;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
+@EnableRedisRepositories(
+        basePackages = "org.oome.infra.redis.hash.server1",
+        redisTemplateRef = "redisTemplateServer1",
+        keyValueTemplateRef = "keyValueTemplateServer1"
+)
 @SpringBootConfiguration
 public class RedisServer1CommonConfig {
 
