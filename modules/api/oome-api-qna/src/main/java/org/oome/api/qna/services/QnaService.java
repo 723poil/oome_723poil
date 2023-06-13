@@ -112,7 +112,7 @@ public class QnaService {
             return 0L;
         }
     }
-    
+
 //    @Transactional
 //    public List<QnaResDto> getQnaTagList(@NonNull Long parentId){
 //        Qna qna = qnaJpaRepository.findById(parentId).orElseThrow(IllegalArgumentException::new);
