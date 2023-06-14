@@ -6,7 +6,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.oome.entity.member.Member;
 import org.oome.entity.qna.Qna;
 import org.oome.entity.qna.QnaType;
-import org.oome.entity.qna.qnaTag.QnaTag;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -38,7 +37,7 @@ public class QnaSaveReqDto implements Serializable {
     private Qna parentQna;
 
     @Schema(description = "태그")
-    private List<QnaTag> tagList;
+    private List<QnaTagSaveReqDto> tagList;
 
     public Qna toEntity() {
         if (qnaType.equals(QnaType.A) && ObjectUtils.isEmpty(parentQna)) {
@@ -51,7 +50,6 @@ public class QnaSaveReqDto implements Serializable {
                 .creater(creater)
                 .qnaType(qnaType)
                 .parentQna(parentQna)
-                .tagList(tagList)
                 .build();
     }
 }

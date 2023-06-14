@@ -15,14 +15,10 @@ import javax.persistence.*;
 public class QnaTag extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String tag;
-
-    @Column
-    private Integer count;
 
     @ManyToOne
     @JoinColumn(nullable = false)

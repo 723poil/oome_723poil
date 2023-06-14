@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.oome.entity.qna.Qna;
 import org.oome.entity.qna.qnaTag.QnaTag;
 
 @ToString
@@ -17,11 +16,9 @@ public class QnaTagResDto {
     private String tag;
 
     private Integer count;
-    private Qna qna;
 
     public QnaTagResDto(QnaTag qnaTag) {
         this.tag = qnaTag.getTag();
         this.count = qnaTag.getCount();
-        this.qna = qnaTag.getQna();
     }
 }
