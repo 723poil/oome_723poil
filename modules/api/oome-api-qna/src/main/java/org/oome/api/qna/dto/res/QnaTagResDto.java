@@ -15,10 +15,7 @@ public class QnaTagResDto {
 
     private String tag;
 
-    private Integer count;
-
     public QnaTagResDto(QnaTag qnaTag) {
         this.tag = qnaTag.getTag();
-        this.count = qnaTag.getCount();
     }
 }
