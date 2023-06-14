@@ -67,8 +67,12 @@ oomeApi.fetchData = (url, options = {}) => {
             return response.data;
         })
         .catch(error => {
+            if (error.request && error.request.response === 'UNAUTHORIZED') {
+                alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
+                window.location.href = '/login';
+            }
             // 오류 처리
-            if (error.response && error.response.status === 406) {
+            else if (error.response && error.response.status === 406) {
                 // 토큰이 만료되었으므로 서버에 재발급 요청
                 return refreshToken()
                     .then(() => {

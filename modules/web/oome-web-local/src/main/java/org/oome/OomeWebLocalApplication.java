@@ -6,7 +6,6 @@ import org.oome.entity.common.enums.YN;
 import org.oome.entity.enums.MemberRole;
 import org.oome.entity.member.Member;
 import org.oome.entity.member.repository.MemberJpaRepository;
-import org.oome.entity.question.repository.QuestionJpaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,8 +23,6 @@ public class OomeWebLocalApplication implements CommandLineRunner {
 
     private final MemberJpaRepository memberJpaRepository;
 
-    private final QuestionJpaRepository questionJpaRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
@@ -34,6 +31,15 @@ public class OomeWebLocalApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+//        createDummyUser();
+
+    }
+
+    /**
+     * 테스트용 더미 유저를 생성한다.
+     * h2가 휘발성 인메모리동작을 하지 않기 때문에 최초 1회만 수행한다.
+     */
+    private void createDummyUser() {
         Set<MemberRole> commonRole = new HashSet<>();
         commonRole.add(MemberRole.MEMBER);
         Set<MemberRole> adminRole = new HashSet<>();
@@ -80,6 +86,5 @@ public class OomeWebLocalApplication implements CommandLineRunner {
 
         memberJpaRepository.saveAll(memberList);
         log.debug("dummy member created!!");
-
     }
 }

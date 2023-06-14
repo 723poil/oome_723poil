@@ -29,7 +29,10 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             response.getWriter().write("JWT_EXPIRED");
             response.flushBuffer();
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("applicaiton/json");
+            response.getWriter().write("UNAUTHORIZED");
+            response.flushBuffer();
         }
     }
 }
