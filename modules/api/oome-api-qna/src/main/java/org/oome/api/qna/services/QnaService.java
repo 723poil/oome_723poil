@@ -1,6 +1,7 @@
 package org.oome.api.qna.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.oome.api.qna.dto.req.QnaSaveReqDto;
 import org.oome.api.qna.dto.res.QnaResDto;
 import org.oome.core.api.exception.runtime.SecurityContextAuthenticationEmptyException;
@@ -19,12 +20,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class QnaService {
     private final MemberJpaRepository memberJpaRepository;
 
@@ -35,6 +38,7 @@ public class QnaService {
     private final QnaTagJpaRepository qnaTagJpaRepository;
 
     @Transactional
+    @ExceptionHandler(NullPointerException.class)
     public Long saveQuestion(@NonNull QnaSaveReqDto reqDto) {
 
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
@@ -43,7 +47,11 @@ public class QnaService {
         reqDto.setQnaType(QnaType.Q);
         reqDto.setCreater(member);
         Qna qna = qnaJpaRepository.save(reqDto.toEntity());
-        qnaTagJpaRepository.saveAll(reqDto.getTagList().stream().map(e -> e.toEntity(qna)).collect(Collectors.toList()));
+        log.info("[QnA] 질문 저장 완료");
+        if (reqDto.getTagList() != null){
+            log.info("[QnA] 질문 태그 O");
+            qnaTagJpaRepository.saveAll(reqDto.getTagList().stream().map(e -> e.toEntity(qna)).collect(Collectors.toList()));
+        }
         return qna.getId();
     }
 
