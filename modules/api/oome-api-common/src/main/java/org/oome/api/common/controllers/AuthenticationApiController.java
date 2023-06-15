@@ -2,11 +2,12 @@ package org.oome.api.common.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.oome.core.api.http.OomeResponse;
 import org.oome.infra.service.AuthenticationService;
 import org.oome.infra.utils.SecurityUtil;
 import org.oome.infra.vo.MemberLoginReqDto;
 import org.oome.infra.vo.TokenDto;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +28,14 @@ public class AuthenticationApiController {
     private final HttpSession httpSession;
 
     @PostMapping(value = "/authorize")
-    public ResponseEntity<TokenDto> login(@RequestBody @Valid MemberLoginReqDto loginReqVo,
+    public OomeResponse<TokenDto> login(@RequestBody @Valid MemberLoginReqDto loginReqVo,
                                             HttpServletRequest request,
                                             HttpServletResponse response) throws Exception {
         log.debug("LoginRequest Accepted");
 
         TokenDto vo = authenticationService.login(loginReqVo);
 
-        return ResponseEntity.ok(vo);
+        return new OomeResponse<>(vo, HttpStatus.OK);
     }
 
     @GetMapping("/user")
@@ -43,7 +44,7 @@ public class AuthenticationApiController {
     }
 
     @GetMapping("/authcheck")
-    public ResponseEntity<Long> getLoginMember() {
-        return ResponseEntity.ok(SecurityUtil.getCurrentMemberId());
+    public OomeResponse<Long> getLoginMember() {
+        return new OomeResponse(SecurityUtil.getCurrentMemberId(), HttpStatus.OK);
     }
 }

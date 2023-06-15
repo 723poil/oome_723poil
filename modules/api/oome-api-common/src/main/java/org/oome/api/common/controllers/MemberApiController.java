@@ -6,8 +6,8 @@ import org.oome.api.common.dto.req.EmailAuthReqDto;
 import org.oome.api.common.dto.req.MemberInfoUpdateReqDto;
 import org.oome.api.common.dto.req.MemberSaveReqDto;
 import org.oome.api.common.services.MemberService;
-import org.oome.entity.enums.MemberRole;
-import org.springframework.http.ResponseEntity;
+import org.oome.core.api.http.OomeResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +27,9 @@ public class MemberApiController {
      * @return 가입된 id (로그인창으로 redirect등 에서 사용)
      */
     @PostMapping("/regist")
-    public ResponseEntity<String> saveMember(@Valid @RequestBody MemberSaveReqDto reqDto) {
+    public OomeResponse<String> saveMember(@Valid @RequestBody MemberSaveReqDto reqDto) {
 
-        return ResponseEntity.ok(memberService.saveMember(reqDto));
+        return new OomeResponse<>(memberService.saveMember(reqDto), HttpStatus.OK);
     }
 
     /**
@@ -38,11 +38,11 @@ public class MemberApiController {
      * @return 성공여부
      */
     @PostMapping("/authcode")
-    public ResponseEntity<String> sendAuthCode(@RequestBody EmailAuthReqDto emailAuthReqDto) {
+    public OomeResponse<String> sendAuthCode(@RequestBody EmailAuthReqDto emailAuthReqDto) {
 
         memberService.sendAuthCode(emailAuthReqDto.getEmail());
 
-        return ResponseEntity.ok("SENDED");
+        return new OomeResponse<>("SENDED", HttpStatus.OK);
     }
 
     /**
@@ -51,9 +51,9 @@ public class MemberApiController {
      * @return 인증여부
      */
     @PostMapping("/verify")
-    public ResponseEntity<String> matchAuthCode(@RequestBody EmailAuthReqDto emailAuthReqDto) {
+    public OomeResponse<String> matchAuthCode(@RequestBody EmailAuthReqDto emailAuthReqDto) {
 
-        return ResponseEntity.ok(memberService.matchAuthCode(emailAuthReqDto));
+        return new OomeResponse<>(memberService.matchAuthCode(emailAuthReqDto), HttpStatus.OK);
     }
 
     /**
@@ -63,7 +63,7 @@ public class MemberApiController {
      */
     @Secured({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_DEVELOPER"})
     @PutMapping("/update")
-    public ResponseEntity<String> updateMemberInfo(@Valid @RequestBody MemberInfoUpdateReqDto reqDto) {
-        return ResponseEntity.ok(memberService.updateMemberInfo(reqDto));
+    public OomeResponse<String> updateMemberInfo(@Valid @RequestBody MemberInfoUpdateReqDto reqDto) {
+        return new OomeResponse<>(memberService.updateMemberInfo(reqDto), "MESSAGE", HttpStatus.OK);
     }
 }

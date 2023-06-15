@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.oome.api.qna.dto.req.QnaSaveReqDto;
 import org.oome.api.qna.dto.res.QnaResDto;
 import org.oome.api.qna.services.QnaService;
-import org.oome.entity.qna.qnaLike.QnaLike;
+import org.oome.core.api.http.OomeResponse;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,8 +32,8 @@ public class QnaApiController {
      */
     //@Secured("ROLE_MEMBER")
     @PostMapping(value = "/question", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> saveQuestion(@Valid @RequestBody QnaSaveReqDto reqDto) {
-        return ResponseEntity.ok(qnaService.saveQuestion(reqDto));
+    public OomeResponse<Long> saveQuestion(@Valid @RequestBody QnaSaveReqDto reqDto) {
+        return new OomeResponse<>(qnaService.saveQuestion(reqDto), HttpStatus.OK);
     }
 
     /**
@@ -44,10 +44,10 @@ public class QnaApiController {
      */
     //@Secured("ROLE_MEMBER")
     @PostMapping(value = "/question/{questionId}/answer", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> saveAnswer(
+    public OomeResponse<Long> saveAnswer(
             @PathVariable("questionId") Long questionId,
             @Valid @RequestBody QnaSaveReqDto reqDto) {
-        return ResponseEntity.ok(qnaService.saveAnswer(questionId, reqDto));
+        return new OomeResponse<>(qnaService.saveAnswer(questionId, reqDto), HttpStatus.OK);
     }
 
     /**
@@ -57,11 +57,11 @@ public class QnaApiController {
      * @return 질문 리스트(Page)
      */
     @GetMapping("/list")
-    public ResponseEntity<List<QnaResDto>> getQuestionList(
+    public OomeResponse<List<QnaResDto>> getQuestionList(
             @RequestParam(defaultValue = "0") Integer pageIndex,
             @RequestParam(defaultValue = "10") Integer pageSize) {
         PageRequest pageable = PageRequest.of(pageIndex, pageSize);
-        return ResponseEntity.ok(qnaService.getQnaList(pageable));
+        return new OomeResponse<>(qnaService.getQnaList(pageable), HttpStatus.OK);
     }
 
     /**
@@ -71,11 +71,11 @@ public class QnaApiController {
      * @return 내가 쓴 답변(page)
      */
     @GetMapping("/creater/answer")
-    public ResponseEntity<List<QnaResDto>> getMyAnswerList(
+    public OomeResponse<List<QnaResDto>> getMyAnswerList(
             @RequestParam(defaultValue = "0") Integer pageIndex,
             @RequestParam(defaultValue = "10") Integer pageSize){
         PageRequest pageable = PageRequest.of(pageIndex, pageSize);
-        return ResponseEntity.ok(qnaService.getMyAnswerList(pageable));
+        return new OomeResponse<>(qnaService.getMyAnswerList(pageable), HttpStatus.OK);
     }
 
     /**
@@ -85,11 +85,11 @@ public class QnaApiController {
      * @return 내가 쓴 질문(page)
      */
     @GetMapping("/creater/question")
-    public ResponseEntity<List<QnaResDto>> getMyQuestionList(
+    public OomeResponse<List<QnaResDto>> getMyQuestionList(
             @RequestParam(defaultValue = "0") Integer pageIndex,
             @RequestParam(defaultValue = "10") Integer pageSize){
         PageRequest pageable = PageRequest.of(pageIndex, pageSize);
-        return ResponseEntity.ok(qnaService.getMyQuestionList(pageable));
+        return new OomeResponse<>(qnaService.getMyQuestionList(pageable), HttpStatus.OK);
     }
 
     /**
@@ -98,10 +98,10 @@ public class QnaApiController {
      * @return 0 true 1 false or save성공시 getId().
      */
     @PostMapping("/question/{questionId}/like")
-    public ResponseEntity<Long> saveQuestionLike(
+    public OomeResponse<Long> saveQuestionLike(
             @PathVariable("questionId") Long questionId
             ){
-        return ResponseEntity.ok(qnaService.saveQuestionLike(questionId));
+        return new OomeResponse<>(qnaService.saveQuestionLike(questionId), HttpStatus.OK);
     }
     
 }
