@@ -2,8 +2,8 @@ package org.oome.infra.config;
 
 import lombok.RequiredArgsConstructor;
 import org.oome.infra.jwt.JwtAuthenticationEntryPoint;
-import org.oome.infra.jwt.JwtFilter;
-import org.oome.infra.jwt.TokenProvider;
+import org.oome.infra.jwt.JwtTokenFilter;
+import org.oome.infra.jwt.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,12 +17,12 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
 
     @Override
     public void configure(HttpSecurity builder) throws Exception {
-        JwtFilter filter = new JwtFilter(authenticationManager, jwtAuthenticationEntryPoint, tokenProvider);
+        JwtTokenFilter filter = new JwtTokenFilter(authenticationManager, jwtAuthenticationEntryPoint, jwtTokenProvider);
         builder.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
 }

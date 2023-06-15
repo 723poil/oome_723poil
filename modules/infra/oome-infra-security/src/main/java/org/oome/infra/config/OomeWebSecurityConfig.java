@@ -6,7 +6,7 @@ import org.oome.core.properties.CommonUrlProperties;
 import org.oome.entity.enums.MemberRole;
 import org.oome.infra.jwt.JwtAccessDeniedHandler;
 import org.oome.infra.jwt.JwtAuthenticationEntryPoint;
-import org.oome.infra.jwt.TokenProvider;
+import org.oome.infra.jwt.JwtTokenProvider;
 import org.oome.infra.utils.TraceLogger;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +36,7 @@ public class OomeWebSecurityConfig {
 
     private final CommonUrlProperties commonUrlProperties;
 
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -75,7 +75,7 @@ public class OomeWebSecurityConfig {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
-                .apply(new JwtSecurityConfig(authenticationManagerBuilder.getObject(), jwtAuthenticationEntryPoint, tokenProvider))
+                .apply(new JwtSecurityConfig(authenticationManagerBuilder.getObject(), jwtAuthenticationEntryPoint, jwtTokenProvider))
                 .and()
                 .headers()
                 .frameOptions()

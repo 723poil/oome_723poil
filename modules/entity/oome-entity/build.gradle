@@ -5,6 +5,13 @@ plugins {
 }
 
 dependencies {
+//    rootProject.subprojects.each {
+//        if (!it.getName().contains("oome-web-local") && !it.getName().contains("oome-entity")) {
+//            println("implementation project :${it.name}")
+//            implementation project(":${it.name}")
+//        }
+//    }
+
     implementation project(":oome-core")
     implementation project(":oome-core-api")
     implementation project(":oome-core-db")

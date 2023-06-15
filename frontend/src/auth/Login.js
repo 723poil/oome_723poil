@@ -22,6 +22,15 @@ const Login = () => {
             method: 'POST',
             data: data
         }).then((data) => {
+            if (data.grantType) {
+                if (data.grantType === 'LOCKED') {
+                    alert('패스워드 5회 오류로 계정이 잠겼습니다.');
+                } else if (data.grantType === 'BLOCK') {
+                    alert('차단된계정입니다.');
+                } else if (data.grantType === 'INVALID_PASSWORD') {
+                    alert('패스워드 오류!');
+                }
+            }
             const token = data.accessToken;
             if (token !== null) {
                 localStorage.setItem('isLoggedIn', 'true');

@@ -1,5 +1,6 @@
 package org.oome.infra.jwt;
 
+import lombok.extern.slf4j.Slf4j;
 import org.oome.infra.exception.AuthenticationJwtExpiredException;
 import org.oome.infra.exception.JwtAuthenticationException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,16 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JwtFilter extends BasicAuthenticationFilter {
+@Slf4j
+public class JwtTokenFilter extends BasicAuthenticationFilter {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_PREFIX = "Bearer ";
 
-    private final TokenProvider tokenProvider;
-    public JwtFilter(AuthenticationManager authenticationManager,
-                     AuthenticationEntryPoint authenticationEntryPoint,
-                     TokenProvider tokenProvider) {
+    private final JwtTokenProvider jwtTokenProvider;
+    public JwtTokenFilter(AuthenticationManager authenticationManager,
+                          AuthenticationEntryPoint authenticationEntryPoint,
+                          JwtTokenProvider jwtTokenProvider) {
         super(authenticationManager, authenticationEntryPoint);
-        this.tokenProvider = tokenProvider;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     private String resolveToken(HttpServletRequest request) {
@@ -41,13 +43,13 @@ public class JwtFilter extends BasicAuthenticationFilter {
         boolean isValid = false;
 
         try {
-            isValid = tokenProvider.validateToken(jwt, response);
+            isValid = jwtTokenProvider.validateToken(jwt, response);
         } catch (AuthenticationJwtExpiredException e) {
             getAuthenticationEntryPoint().commence(request, response, new JwtAuthenticationException("JWT EXPIRED", e));
             return;
         }
         if (StringUtils.hasText(jwt) && isValid) {
-            Authentication authentication = tokenProvider.getAuthentication(jwt);
+            Authentication authentication = jwtTokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         }

@@ -3,6 +3,7 @@ package org.oome.api.common.services;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.oome.api.common.dto.req.EmailAuthReqDto;
+import org.oome.api.common.dto.req.MemberInfoUpdateReqDto;
 import org.oome.api.common.dto.req.MemberSaveReqDto;
 import org.oome.core.api.exception.runtime.NotValidUsernameAcceptOomeRuntimeException;
 import org.oome.core.utils.S;
@@ -84,5 +85,18 @@ public class MemberService {
         } else {
             return "INVALID";
         }
+    }
+
+    @Transactional
+    public String updateMemberInfo(MemberInfoUpdateReqDto reqDto) {
+
+        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(NotValidUsernameAcceptOomeRuntimeException::new);
+
+        member.setPhoneNumber(reqDto.getPhoneNumber());
+        member.setGender(reqDto.getGender());
+        member.setGithubUrl(reqDto.getGithubUrl());
+        member.setBirth(reqDto.getBirth().atStartOfDay());
+//        member.updateInfo(reqDto);
+        return "SUCCESS";
     }
 }
