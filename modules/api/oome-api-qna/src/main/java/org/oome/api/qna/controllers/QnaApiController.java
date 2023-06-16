@@ -33,7 +33,7 @@ public class QnaApiController {
     //@Secured("ROLE_MEMBER")
     @PostMapping(value = "/question", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public OomeResponse<Long> saveQuestion(@Valid @RequestBody QnaSaveReqDto reqDto) {
-        return new OomeResponse<>(qnaService.saveQuestion(reqDto), HttpStatus.OK);
+        return OomeResponse.ok(qnaService.saveQuestion(reqDto));
     }
 
     /**

@@ -35,4 +35,17 @@ public class OomeResponse<T> extends ResponseEntity<T> {
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
+
+    public static <T> OomeResponse<T> ok(T body) {
+        return new OomeResponse<>(body, HttpStatus.OK);
+    }
+
+    public static <T> OomeResponse<T> ok(T body, HttpStatus status) {
+        return new OomeResponse<>(body, status);
+    }
+
+
+    public static <T> OomeResponse<T> error(T body, String errorCode, HttpStatus status) {
+        return new OomeResponse<>(body, errorCode, status);
+    }
 }
