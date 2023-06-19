@@ -60,3 +60,4 @@ public class MyEntity extends BaseTimeEntity {
 @Column(nullable = false)
 private QnaType qnaType;
 ```
+13. builder 패턴을 이용한 객체생성시 개발자 관점에서 사용하지 말아야할 부분은 사용하지 않는다.

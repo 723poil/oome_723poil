@@ -19,4 +19,6 @@
                         .build()
         );
    ```
-   
+2. org.oome.infra.utils.SecurityUtils
+   1. SecurityContext를 관리하는 유틸입니다.
+   2. header JWT 토큰정보를 이용하여 로그인된 사용자를 식별합니다.
