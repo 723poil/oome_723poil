@@ -15,6 +15,7 @@ import org.oome.entity.qna.qnaLike.repository.QnaLikeJpaRepository;
 import org.oome.entity.qna.qnaTag.repository.QnaTagJpaRepository;
 import org.oome.entity.qna.repository.QnaJpaRepository;
 import org.oome.infra.utils.SecurityUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
@@ -82,6 +83,11 @@ public class QnaService {
         return qnaJpaRepository.findAllByCreaterAndQnaType(member, QnaType.A, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
     }
 
+    @Cacheable(
+            value = "myQuestions",
+            cacheManager = "cacheManagerServer2",
+            keyGenerator = "customKeyGenerator"
+    )
     @Transactional
     public List<QnaResDto> getMyQuestionList(PageRequest pageable){
         Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(SecurityContextAuthenticationEmptyException::new);

@@ -17,10 +17,13 @@ import java.util.List;
 @Entity
 public class Qna extends BaseTimeEntity {
 
+    // 불변요소의 경우 Setter의 AccessLevel로 메소드 접근제어한다.
+    @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
+    @Setter(AccessLevel.NONE)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private QnaType qnaType;
@@ -34,6 +37,7 @@ public class Qna extends BaseTimeEntity {
     @ManyToOne
     private Qna parentQna;
 
+    // fetchType == EAGER일 경우 JPA default이기때문에 따로 명시하지 않는다.
     @OneToMany(mappedBy = "parentQna", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Qna> answerList;
 

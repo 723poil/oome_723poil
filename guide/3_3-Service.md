@@ -8,3 +8,18 @@
 6. 위 유틸은 헤더에 포함된 jwt토큰정보를 파싱해 어떤 유저의 요청인지 확인하고 유저 id를 리턴한다.
 7. 필요한 경우 springframework.lang.NonNull 어노테이션을 적극 사용한다.
 8. 완성된 메소드에는 반드시 javadoc을 작성한다.
+9. redis 캐싱이 필요한 경우 다음과 같이 작성한다.
+```java
+// cacheManagerServer2를 cacheManager로 설정한다
+// server1는 refresh token, 이메일 인증번호를 관리하는 서버
+@Cacheable(
+    value = "myQuestions",
+    cacheManager = "cacheManagerServer2",
+    keyGenerator = "customKeyGenerator"
+)
+@Transactional
+public List<QnaResDto> getMyQuestionList(PageRequest pageable){
+    Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(SecurityContextAuthenticationEmptyException::new);
+    return qnaJpaRepository.findAllByCreaterAndQnaType(member, QnaType.Q, pageable).stream().map(QnaResDto::new).collect(Collectors.toList());
+}
+```
