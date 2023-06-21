@@ -30,6 +30,38 @@ public class QnaSaveReqDto implements Serializable {
 }
 ``` 
 5. req dto의 경우 validation을 활용한다. [참고](https://www.baeldung.com/spring-boot-bean-validation)
+   1. 필요한 경우 custom validator를 선언하여 사용한다.
+   2. 위치: core-api/..../validation
+   3. annotation을 작성한다. 이 때 @Constraint내의 validateBy에 유효성 검증을 할 클래스를 등록한다.
+   ```java
+   @Target({ElementType.FIELD, ElementType.PARAMETER})
+   @Retention(RetentionPolicy.RUNTIME)
+   @Constraint(validatedBy = PhoneNumberValidator.class)  
+   public @interface PhoneNumber {
+     String message() default "휴대전화 형식이 올바르지 않습니다.";
+     Class<?>[] groups() default {};
+     Class<? extends Payload>[] payload() default {}; 
+   }
+   ```
+   4. 유효성 검증 클래스를 등록한다.
+   ```java
+   public class EmailValidator implements ConstraintValidator<Email, String> {
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+             // 이메일 검증에 사용할 정규식 패턴
+             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+     );
+
+    @Override
+    public void initialize(Email constraintAnnotation) {
+        // 초기화 작업을 수행할 경우 여기에 작성
+    }
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        return value != null && EMAIL_PATTERN.matcher(value).matches();
+    }
+   }
+   ```
 6. 일반적으로 saveReqDto의 경우 toEntity() 메소드를 구현한다. (필수사항아님)
 ```java
 public Qna toEntity() {
