@@ -46,8 +46,11 @@ public class QnaService {
 //        reqDto.setCreater(member);
 //        return questionJpaRepository.save(reqDto.toEntity()).getId();
         reqDto.setQnaType(QnaType.Q);
-        reqDto.setCreater(member);
-        Qna qna = qnaJpaRepository.save(reqDto.toEntity());
+//        reqDto.setCreater(member);
+        Qna saveQna = reqDto.toEntity();
+        saveQna.setCreater(member);
+        Qna qna = qnaJpaRepository.save(saveQna);
+
         log.info("[QnA] 질문 저장 완료");
         if (reqDto.getTagList() != null){
             log.info("[QnA] 질문 태그 O");
@@ -63,10 +66,13 @@ public class QnaService {
 //        Question question = questionJpaRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
         Qna qna = qnaJpaRepository.findById(parentId).orElseThrow(IllegalArgumentException::new);
         reqDto.setQnaType(QnaType.A);
-        reqDto.setParentQna(qna);
-        reqDto.setCreater(member);
+//        reqDto.setParentQna(qna);
+//        reqDto.setCreater(member);
+        Qna saveQna = reqDto.toEntity();
+        saveQna.setParentQna(qna);
+        saveQna.setCreater(member);
 
-        return qnaJpaRepository.save(reqDto.toEntity()).getId();
+        return qnaJpaRepository.save(saveQna).getId();
     }
 
     @Transactional

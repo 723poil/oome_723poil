@@ -23,7 +23,6 @@ public class Qna extends BaseTimeEntity {
     @Id
     private Long id;
 
-    @Setter(AccessLevel.NONE)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private QnaType qnaType;
