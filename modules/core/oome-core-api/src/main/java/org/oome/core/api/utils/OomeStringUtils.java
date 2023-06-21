@@ -2,6 +2,9 @@ package org.oome.core.api.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+/**
+ * 테스트용으로 deprecated되었음
+ */
 @Deprecated
 public class OomeStringUtils {
 

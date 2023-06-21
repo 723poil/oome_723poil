@@ -58,6 +58,12 @@ public class CommonFIleUtils {
             throw new FileOomeRuntimeException("첨부파일 생성 중에 오류가 발생했습니다.");
         }
 
+        File savedFile = new File(path, Objects.requireNonNull(file.getName()));
+
+        if (!savedFile.exists()) {
+            throw new FileOomeRuntimeException("저장된 파일이 없습니다.");
+        }
+
         return file.getName();
     }
 }
