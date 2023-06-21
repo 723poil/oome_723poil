@@ -5,6 +5,7 @@ import Main from './Main'
 import NotFound from './NotFound'
 import Regist from './member/Regist'
 import QuestionList from "./qna/QuestionList";
+import SwaggerWrapper from "./common/SwaggerWrapper";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
                   {/* 기본 Index */}
                   <Route path="/" element={<Main />}></Route>
                   <Route path="/login" element={<Login />}></Route>
-
+                  <Route path="/swagger-ui" element={<SwaggerWrapper />}></Route>
                   {/* 404 NotFound */}
                   <Route path="*" element={<NotFound />}></Route>
 
