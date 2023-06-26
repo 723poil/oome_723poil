@@ -66,7 +66,7 @@ public class OomeWebSecurityConfig {
                 .antMatchers(commonUrlProperties.getCommonApi("/auth/authcheck")).hasAuthority(MemberRole.DEVELOPER.getRole())
                 .antMatchers(urlList.stream()
                         .map(url -> url + "/admin/**").toArray(String[]::new)).hasAnyAuthority(MemberRole.ADMIN.getRole(), MemberRole.DEVELOPER.getRole())
-                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers(commonUrlProperties.getIgnoredUrl().toArray(String[]::new)).permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .cors().disable()
@@ -102,7 +102,7 @@ public class OomeWebSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) ->
             web.ignoring()
-                    .antMatchers("/h2-console/**");
+                    .antMatchers(commonUrlProperties.getIgnoredUrl().toArray(String[]::new));
 
     }
 }

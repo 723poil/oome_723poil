@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -25,7 +24,7 @@ public class AuthenticationApiController {
 
     private final AuthenticationService authenticationService;
 
-    private final HttpSession httpSession;
+    private final SecurityUtil securityUtil;
 
     @PostMapping(value = "/authorize")
     public OomeResponse<TokenDto> login(@RequestBody @Valid MemberLoginReqDto loginReqVo,
@@ -45,6 +44,6 @@ public class AuthenticationApiController {
 
     @GetMapping("/authcheck")
     public OomeResponse<Long> getLoginMember() {
-        return new OomeResponse(SecurityUtil.getCurrentMemberId(), HttpStatus.OK);
+        return new OomeResponse<>(securityUtil.getCurrentMemberId(), HttpStatus.OK);
     }
 }

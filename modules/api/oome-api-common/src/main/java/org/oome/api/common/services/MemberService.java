@@ -33,6 +33,8 @@ public class MemberService {
 
     private final AuthCodeRedisRepository authCodeRedisRepository;
 
+    private final SecurityUtil securityUtil;
+
     @Transactional
     public String saveMember(MemberSaveReqDto reqDto) {
         if (reqDto.getIsUsernameValid().equals(YN.N)) {
@@ -47,7 +49,7 @@ public class MemberService {
     public void sendAuthCode(String email) {
 
         int authCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
-        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(IllegalArgumentException::new);
+        Member member = securityUtil.getAuthorizedUser();
 
         authCodeRedisRepository.save(
                 AuthCode.builder()
@@ -90,7 +92,7 @@ public class MemberService {
     @Transactional
     public String updateMemberInfo(MemberInfoUpdateReqDto reqDto) {
 
-        Member member = memberJpaRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(NotValidUsernameAcceptOomeRuntimeException::new);
+        Member member = securityUtil.getAuthorizedUser();
 
         member.setPhoneNumber(reqDto.getPhoneNumber());
         member.setGender(reqDto.getGender());

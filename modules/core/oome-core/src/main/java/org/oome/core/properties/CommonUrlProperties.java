@@ -3,6 +3,8 @@ package org.oome.core.properties;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class CommonUrlProperties {
@@ -16,6 +18,8 @@ public class CommonUrlProperties {
     private String utilUrl;
 
     private String extUrl;
+
+    private List<String> ignoredUrl;
 
     public String getCommonApi(String url) {
         return this.getCommonUrl() + url;

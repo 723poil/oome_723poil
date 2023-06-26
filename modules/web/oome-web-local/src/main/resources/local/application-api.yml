@@ -15,6 +15,9 @@ org:
         blog-url: /api/${org.oome.api.version.blog}/blog
         util-url: /api/${org.oome.api.version.util}/util
         ext-url: /api/${org.oome.api.version.ext}/ext
+        ignored-url:
+          - /swagger-ui
+          - /h2-console/**
 
 spring:
   mvc:

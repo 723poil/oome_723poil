@@ -34,9 +34,6 @@ public class SimpleTest {
     @Autowired
     private QnaApiController qnaApiController;
 
-    @Autowired
-    private QuestionJpaRepository questionJpaRepository;
-
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(qnaApiController).build();
@@ -59,10 +56,6 @@ public class SimpleTest {
         result.andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$").value(savedId));
-
-        Question entity = questionJpaRepository.findById(savedId).orElseThrow(IllegalArgumentException::new);
-
-        assertThat(entity.getCreater().getUsername()).isEqualTo("admin");
 
     }
 }

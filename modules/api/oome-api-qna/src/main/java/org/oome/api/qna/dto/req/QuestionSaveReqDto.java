@@ -3,7 +3,6 @@ package org.oome.api.qna.dto.req;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.oome.entity.member.Member;
-import org.oome.entity.question.Question;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -29,11 +28,4 @@ public class QuestionSaveReqDto implements Serializable {
     @Schema(description = "작성자")
     private Member creater;
 
-    public Question toEntity() {
-        return Question.builder()
-                .title(title)
-                .contents(contents)
-                .creater(creater)
-                .build();
-    }
 }
